@@ -5,12 +5,12 @@ import Login from './components/Login/Login';
 import Header from './components/Header/Header';
 import Dashboard from './components/Dashboard/Dashboard';
 import { isLoggedIn } from './utils/common'
-import AddTodo from './components/AddTodo/AddTodo';
-import MyTodo from './components/MyTodo/MyTodo';
 import Profile from './components/Profile/Profile';
 import ChangePassword from './components/ChangePassword/ChangePassword';
 import ForgetPassword from './components/ForgetPassword/ForgetPassword';
 import ResetPassword from './components/ResetPassword/ResetPassword';
+import AddPost from './components/AddTodo/AddPost';
+import MyPost from './components/MyPost/MyPost';
 
 const ProtectedRoute = ({ children }) => {
     // eslint-disable-next-line no-unused-expressions
@@ -31,19 +31,19 @@ function App() {
                             <Dashboard />
                         </ProtectedRoute>
                     } />
-                    <Route path="/addTodo" element={
+                    <Route path="/addPost" element={
                         <ProtectedRoute>
-                            <AddTodo />
-                        </ProtectedRoute>
-                    } />
-                    <Route path="/myTodo" element={
-                        <ProtectedRoute>
-                            <MyTodo />
+                            <AddPost />
                         </ProtectedRoute>
                     } />
                     <Route path="/profile" element={
                         <ProtectedRoute>
                             <Profile />
+                        </ProtectedRoute>
+                    } />
+                    <Route path="/myPost" element={
+                        <ProtectedRoute>
+                            <MyPost />
                         </ProtectedRoute>
                     } />
                     <Route path="/changePassword" element={

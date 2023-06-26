@@ -18,7 +18,7 @@ export const regis = async (req, res) => {
         }
 
         else {
-            const url = req.protocol + '://' + req.get('host') + '/uploads/' + req.file.filename;
+            const url = req.protocol + '://' + req.get('host') + '/uploads/profileimage/' + req.file.filename;
             const hashPass = await hashPassword(password);
             await User.create({ name, email, password: hashPass, phone, address, profileImg: url });
 
@@ -156,7 +156,7 @@ export const forgetPassword = async (req, res) => {
             })
         }
 
-        const token = createToken({ userId: user._id, email: user.email }, process.env.SECRET_KEY, '300s');
+        const token = createToken({ userId: user._id, email: user.email }, process.env.SECRET_KEY, '1h');
         await sendMail(req, res, {
             from : process.env.EMAIL,
             to : email,
@@ -219,11 +219,10 @@ export const editProfile = async (req, res) => {
     try{
         const userId = req.user.userId;
         const {name, email, phone, address} = req.body
-
         const user = await User.findByIdAndUpdate(userId, {name, email, phone, address}, {new : true});
 
         if (req.file) {
-            user.profileImg = req.protocol + '://' + req.get('host') + '/uploads/' + req.file.filename;
+            user.profileImg = req.protocol + '://' + req.get('host') + '/uploads/profileimage/' + req.file.filename;
             await user.save();
         }
 

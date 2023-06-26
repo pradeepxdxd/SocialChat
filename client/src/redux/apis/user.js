@@ -64,7 +64,6 @@ const userApi = createApi({
                         url: '/editProfile',
                         method: 'PUT',
                         headers: {
-                            "Content-Type": "application/json",
                             "Authorization": `Bearer ${getToken()}`,
                         },
                         body: data

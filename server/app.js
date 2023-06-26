@@ -6,7 +6,7 @@ import cors from 'cors'
 import './utils/config.js';
 
 import authRoute from './routers/auth.routes.js';
-import todoRoute from './routers/todo.routes.js';
+import postRoute from './routers/post.routes.js';
 import userRoute from './routers/user.routes.js';
 
 const app = express();
@@ -17,8 +17,16 @@ app.use(express.urlencoded({ extended: false }));
 app.use('/uploads', express.static('uploads'));
 app.use(cors());
 
+// Add CORS headers middleware
+app.use((req, res, next) => {
+    res.setHeader('Access-Control-Allow-Origin', 'http://localhost:3000');
+    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE');
+    res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
+    next();
+});
+
 app.use('/api/auth', authRoute);
-app.use('/api/todo', todoRoute);
+app.use('/api/post', postRoute);
 app.use('/api/user', userRoute);
 
 app.listen(PORT, () => console.log(`Server is running on ${PORT}`.bold.underline));

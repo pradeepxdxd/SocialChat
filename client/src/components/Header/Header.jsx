@@ -32,8 +32,8 @@ function BasicExample() {
                 <Nav className="me-auto">
                     {auth ?
                         <>
-                            <Nav.Link as={Link} to='/addTodo'>Add Post</Nav.Link>
-                            <Nav.Link as={Link} to='/myTodo'>My Post</Nav.Link>
+                            <Nav.Link as={Link} to='/addPost'>Add Post</Nav.Link>
+                            <Nav.Link as={Link} to='/myPost'>My Post</Nav.Link>
                             <Nav.Link as={Link} to='/#'>Friends<span style={{color:'green'}}>●</span></Nav.Link>
                             <Nav.Link as={Link} to='/#'>Chat <span style={{color:'red', fontFamily:'monospace'}}>3</span></Nav.Link>
                         </>

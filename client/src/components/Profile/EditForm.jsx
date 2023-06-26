@@ -6,7 +6,7 @@ import { useFormik } from 'formik'
 import * as Yup from 'yup'
 
 export default function EditForm({ data, setUserDetailsShow }) {
-    const [doEditProfile, { data: editData, isLoading }] = useEditProfileMutation();
+    const [doEditProfile, { isLoading }] = useEditProfileMutation();
     const [image, setImage] = useState();
 
     const validationSchema = Yup.object().shape({
@@ -23,7 +23,6 @@ export default function EditForm({ data, setUserDetailsShow }) {
         },
         validationSchema,
         onSubmit : data => {
-            // doEditProfile(data);
             handleSubmit(data);
             setUserDetailsShow(true);
         }
