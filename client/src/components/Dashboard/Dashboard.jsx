@@ -1,10 +1,4 @@
-import React, { useEffect } from "react";
-import { useDispatch } from "react-redux";
-import { getUser } from "../../redux/slices/authSlices";
-
-import { useGetTodosQuery } from "../../redux/apis/todo";
-import AllTodos from "./AllTodos";
-import Loading from "../Loading/Loading";
+import React from "react";
 
 export default function Dashboard() {
     // const { data, isLoading } = useGetTodosQuery(undefined, {

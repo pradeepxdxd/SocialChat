@@ -23,9 +23,9 @@ const postApi = createApi({
             }),
             myPosts : builder.query({
                 providesTags : ['Posts'],
-                query : () => {
+                query : q => {
                     return {
-                        url : 'my-posts',
+                        url : `myPosts?page=${q.page}`,
                         method : 'GET',
                         headers : {
                             'Authorization' : `Bearer ${getToken()}`
