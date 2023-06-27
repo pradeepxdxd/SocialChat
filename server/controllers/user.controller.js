@@ -1,7 +1,7 @@
 import dotenv from 'dotenv';
 dotenv.config();
 import User from '../models/user.js'
-import { sendMail } from '../services/mail.js'
+import { sendMail, sendMailHandlebar } from '../services/mail.js'
 import { decodeAndHashPassword, decodePassword, hashPassword } from '../services/decodePassword.js';
 import { createToken } from '../services/token.js';
 
@@ -157,12 +157,22 @@ export const forgetPassword = async (req, res) => {
         }
 
         const token = createToken({ userId: user._id, email: user.email }, process.env.SECRET_KEY, '1h');
-        await sendMail(req, res, {
-            from : process.env.EMAIL,
-            to : email,
-            subject : 'Reset Password',
-            text : `here is your link :- http://localhost:3000/reset_password/${token}`
-        })
+        // await sendMail(req, res, {
+        //     from : process.env.EMAIL,
+        //     to : email,
+        //     subject : 'Reset Password',
+        //     text : `here is your link :- http://localhost:3000/reset_password/${token}`
+        // })
+        await sendMailHandlebar(
+            res, 
+            process.env.EMAIL,
+            email,
+            'Reset Password',
+            'email',
+            {
+                text : `http://localhost:3000/reset_password/${token}`
+            }
+        )
     }
     catch (err) {
         res.status(500).send({
@@ -247,3 +257,14 @@ export const editProfile = async (req, res) => {
     }
 }
 
+export const mailDemo = async (req, res) => {
+    try{
+        sendMailHandlebar(res, 'pradeepbiswas41813@gmail.com', 'mail aaya kya');
+    }
+    catch(err) {
+        res.status(500).send({
+            statusCode : 500,
+            msg : 'Internal Server Error'
+        })
+    }
+}
