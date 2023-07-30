@@ -5,7 +5,7 @@ import { Alert } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
-import Loading from '../Loading/Loading'
+import Loading from '../Loaders/Loading'
 
 const SignUp = () => {
     const [doSignUp, { error, isLoading, isSuccess}] = useSignUpMutation();

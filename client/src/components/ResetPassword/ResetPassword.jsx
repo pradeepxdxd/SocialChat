@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { Form, Button, Container, Row, Col, Alert, Card } from "react-bootstrap";
 import { useFormik } from "formik";
 import * as Yup from "yup";
-import Loading from "../Loading/Loading";
+import Loading from "../Loaders/Loading";
 import { useResetPasswordMutation } from '../../redux/apis/user'
 import { useParams } from 'react-router-dom'
 import Template from "../Template/Template";

@@ -20,9 +20,9 @@ function BasicExample() {
     })
 
     return (
-        <Navbar bg="light" expand="lg">
+        <Navbar bg="light" expand="lg" fixed="top">
             {auth ? (
-                <Navbar.Brand className='mx-2' as={Link} to='/dashboard'>ToDo</Navbar.Brand>
+                <Navbar.Brand className='mx-2' style={{color:'#fc03a5'}} as={Link} to='/dashboard'>Instagram</Navbar.Brand>
             ) : (
                 <Navbar.Brand className='mx-2' as={Link} to='/'>Home</Navbar.Brand>
             )}

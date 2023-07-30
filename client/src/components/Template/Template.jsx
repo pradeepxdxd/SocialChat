@@ -10,7 +10,6 @@ const Template = ({ props, path, pathText }) => {
                     <Card>
                         <Card.Body>
                             <h1 style={{ color: 'green' }}>{props}</h1>
-                            {/* <p>This is a sample message page.</p> */}
                             <Button as={Link} to={path} variant="primary">
                                 Go to {pathText}
                             </Button>

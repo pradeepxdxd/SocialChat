@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { Row, Col, Form, Card, Button } from 'react-bootstrap'
 import { useEditProfileMutation } from '../../redux/apis/user'
-import Loading from '../Loading/Loading'
+import Loading from '../Loaders/Loading'
 import { useFormik } from 'formik'
 import * as Yup from 'yup'
 

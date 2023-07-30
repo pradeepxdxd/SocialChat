@@ -3,7 +3,7 @@ import { Form, Button, Container, Row, Col, Alert } from 'react-bootstrap';
 import { useAddPostMutation } from '../../redux/apis/post';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
-import Loading from '../Loading/Loading'
+import Loading from '../Loaders/Loading'
 
 const AddPost = () => {
     const [addPost, { data, error, isLoading, isSuccess }] = useAddPostMutation();

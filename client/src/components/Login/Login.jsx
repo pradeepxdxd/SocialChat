@@ -7,7 +7,7 @@ import { Link, useNavigate } from 'react-router-dom'
 import { isLoggedIn, tokenDecode } from '../../utils/common'
 import { useDispatch } from 'react-redux';
 import { setUser } from '../../redux/slices/authSlices'
-import Loading from '../Loading/Loading'
+import Loading from '../Loaders/Loading'
 
 export default function Login() {
     const [email, setEmail] = useState('');

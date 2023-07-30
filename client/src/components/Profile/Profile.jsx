@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { useGetUserQuery } from '../../redux/apis/user'
-import Loading from '../Loading/Loading'
+import Loading from '../Loaders/Loading'
 import { useNavigate } from 'react-router-dom'
 import EditForm from './EditForm';
 import UserDetails from './UserDetails';

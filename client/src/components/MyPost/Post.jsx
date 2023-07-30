@@ -24,19 +24,19 @@ export default function Post({ data, user }) {
                         <p className="card-text">{data.caption}</p>
                         <div className="d-flex justify-content-between">
                             <div>
-                                <button type="button" className="btn btn-link">Like</button>
-                                <button type="button" className="btn btn-link">Comment</button>
-                                <button type="button" className="btn btn-link">Share</button>
+                                <button type="button" className="btn btn-link">11 Like</button>
+                                <button type="button" className="btn btn-link">22 Comment</button>
+                                {/* <button type="button" className="btn btn-link">Share</button> */}
                             </div>
-                            <div>
+                            {/* <div>
                                 <button type="button" className="btn btn-link">Save</button>
-                            </div>
+                            </div> */}
                         </div>
-                        <p className="card-text">
+                        {/* <p className="card-text">
                             Likes: {100}
                             <br />
                             Comments: {25}
-                        </p>
+                        </p> */}
                     </div>
                 </div>
             </div>

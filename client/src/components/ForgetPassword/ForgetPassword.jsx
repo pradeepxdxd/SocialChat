@@ -3,7 +3,7 @@ import { Container, Row, Col, Form, Button, Alert, Card } from "react-bootstrap"
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import { useForgetPasswordMutation } from "../../redux/apis/user";
-import Loading from "../Loading/Loading";
+import Loading from "../Loaders/Loading";
 import Template from "../Template/Template";
 
 function ForgetPassword() {

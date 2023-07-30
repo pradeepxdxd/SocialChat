@@ -3,7 +3,7 @@ import { Form, Button, Container, Row, Col, Alert, Card } from "react-bootstrap"
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import { useChangePasswordMutation } from "../../redux/apis/user";
-import Loading from "../Loading/Loading";
+import Loading from "../Loaders/Loading";
 import Template from "../Template/Template";
 
 export default function ChangePassword() {

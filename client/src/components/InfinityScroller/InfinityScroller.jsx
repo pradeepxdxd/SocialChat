@@ -7,36 +7,20 @@ export default function InfinityScroller({ api, limit, Templete }) {
     const [data, setData] = useState([]);
     const [page, setPage] = useState(0);
     const [key] = useState(0);
+    const [loading, setLoading] = useState(true);
 
     const user = useSelector(state => state.user);
 
     const dispatch = useDispatch();
-
-    // useEffect(() => {
-    //     const fetchApi = async () => {
-    //         dispatch(getUserInfo());
-    //         try {
-    //             const response = await dispatch(api(page));
-    //             if (response && response.payload && response.payload.posts) {
-    //                 setData(prevData => prevData.concat(response.payload.posts));
-    //             }
-
-    //         } catch (error) {
-    //             console.error('Error fetching data:', error);
-    //         }
-    //     };
-    //     fetchApi();
-    // }, [api, dispatch, page]);
-
-    // const fetchData = () => {
-    //     setPage(page + 1);
-    // };
 
     useEffect(() => {
         const fetchApi = async () => {
             dispatch(getUserInfo());
             try {
                 const response = await dispatch(api(page));
+                if (response && response.payload && response.payload.posts.length === 0){
+                    setLoading(false);
+                }
                 if (response && response.payload && response.payload.posts) {
                     setData(response.payload.posts);
                 }
@@ -49,11 +33,15 @@ export default function InfinityScroller({ api, limit, Templete }) {
     }, []);
 
     const fetchData = () => {
+        setLoading(true);
         setPage(page + 1);
         const fetchApi = async () => {
             dispatch(getUserInfo());
             try {
-                const response = await dispatch(api(page));
+                const response = await dispatch(api(page+1));
+                if (response && response.payload && response.payload.posts.length === 0){
+                    setLoading(false);
+                }
                 if (response && response.payload && response.payload.posts) {
                     setData(prevData => prevData.concat(response.payload.posts));
                 }
@@ -75,7 +63,7 @@ export default function InfinityScroller({ api, limit, Templete }) {
                 </div>
             </div>
             <div>
-                {data.length > 0 && <InfinityScrollTemplate length={data.length} fetchData={fetchData} />}
+                {data.length > 0 && <InfinityScrollTemplate length={data.length} fetchData={fetchData} loading={loading} />}
             </div>
         </>
     );
