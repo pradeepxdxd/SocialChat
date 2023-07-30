@@ -1,7 +1,7 @@
 import React from 'react'
 import {useNavigate} from 'react-router-dom'
 
-export default function Post({ post, caption, location, profileImg, name }) {
+export default function Post({ data, user }) {
     const navigate = useNavigate()
     const handleProfileClick = () => {
         navigate('/profile');
@@ -12,16 +12,16 @@ export default function Post({ post, caption, location, profileImg, name }) {
                 <div className="card">
                     <div className="card-header">
                         <div className="d-flex align-items-center">
-                            <img onClick={handleProfileClick} src={profileImg} alt="Profile" className="rounded-circle" style={{ width: '40px', height: '40px', marginRight: '10px', cursor : 'pointer' }} />
+                            <img onClick={handleProfileClick} src={user.profileImg} alt="Profile" className="rounded-circle" style={{ width: '40px', height: '40px', marginRight: '10px', cursor : 'pointer' }} />
                             <div>
-                                <h5 className="card-title">{name}</h5>
-                                <p className="card-subtitle text-muted">{location}</p>
+                                <h5 className="card-title">{user.name}</h5>
+                                <p className="card-subtitle text-muted">{data.location}</p>
                             </div>
                         </div>
                     </div>
-                    <img src={post} style={{objectFit: 'cover', height:'500px'}} className="card-img-top" alt={caption} />
+                    <img src={data.post} style={{objectFit: 'cover', height:'500px'}} className="card-img-top" alt={data.caption} />
                     <div className="card-body">
-                        <p className="card-text">{caption}</p>
+                        <p className="card-text">{data.caption}</p>
                         <div className="d-flex justify-content-between">
                             <div>
                                 <button type="button" className="btn btn-link">Like</button>

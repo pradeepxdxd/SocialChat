@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Form, Button, Container, Row, Col } from 'react-bootstrap';
 import { useSignUpMutation } from '../../redux/apis/auth';
 import { Alert } from 'react-bootstrap';
@@ -45,6 +45,10 @@ const SignUp = () => {
             handleSubmit(data);
         }
     })
+
+    useEffect(() => {
+        document.title = 'Sign Up';
+    }, []);
 
     if (isLoading) return <Loading/>
 

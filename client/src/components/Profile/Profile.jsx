@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useGetUserQuery } from '../../redux/apis/user'
 import Loading from '../Loading/Loading'
 import { useNavigate } from 'react-router-dom'
@@ -11,6 +11,10 @@ export default function Profile() {
     const { data, isFetching } = useGetUserQuery(undefined, { refetchOnMountOrArgChange: true });
 
     const navigate = useNavigate();
+
+    useEffect(() => {
+        document.title = 'Profile';
+    }, []) ;
 
     if (isFetching) return <><Loading /></>
 

@@ -9,7 +9,7 @@ import Profile from './components/Profile/Profile';
 import ChangePassword from './components/ChangePassword/ChangePassword';
 import ForgetPassword from './components/ForgetPassword/ForgetPassword';
 import ResetPassword from './components/ResetPassword/ResetPassword';
-import AddPost from './components/AddTodo/AddPost';
+import AddPost from './components/AddPost/AddPost';
 import MyPost from './components/MyPost/MyPost';
 
 const ProtectedRoute = ({ children }) => {

@@ -10,6 +10,5 @@ router.patch('/changePassword', auth, changePassword);
 router.post('/forgetPassword', forgetPassword);
 router.post('/resetPassword', auth, resetPassword);
 router.put('/editProfile', auth, profileImageUpload.single('profileImg'), editProfile);
-router.get('/maildemo', mailDemo);
 
 export default router;

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Form, Button, Container, Row, Col, Alert, Card } from "react-bootstrap";
 import { useFormik } from "formik";
 import * as Yup from "yup";
@@ -34,6 +34,10 @@ export default function ChangePassword() {
       changePassword(data);
     },
   });
+
+  useEffect(() => {
+    document.title = 'Change Password';
+  }, [])
 
   if (isLoading) {
     return <Loading />;

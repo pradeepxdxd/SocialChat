@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Form, Button, Container, Row, Col, Alert } from 'react-bootstrap';
 import { useAddPostMutation } from '../../redux/apis/post';
 import { useFormik } from 'formik';
@@ -8,6 +8,9 @@ import Loading from '../Loading/Loading'
 const AddPost = () => {
     const [addPost, { data, error, isLoading, isSuccess }] = useAddPostMutation();
 
+    useEffect(() => {
+        document.title = 'Add Post';
+    }, []);
 
     const validationSchema = Yup.object().shape({
         post: Yup.string()

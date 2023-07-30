@@ -157,12 +157,7 @@ export const forgetPassword = async (req, res) => {
         }
 
         const token = createToken({ userId: user._id, email: user.email }, process.env.SECRET_KEY, '1h');
-        // await sendMail(req, res, {
-        //     from : process.env.EMAIL,
-        //     to : email,
-        //     subject : 'Reset Password',
-        //     text : `here is your link :- http://localhost:3000/reset_password/${token}`
-        // })
+
         await sendMailHandlebar(
             res, 
             process.env.EMAIL,

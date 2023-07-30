@@ -10,7 +10,7 @@ export const auth = (req, res, next) => {
                 if (err){
                     res.status(400).send({
                         statusCode : 400,
-                        msg : 'Something went wrong'
+                        msg : 'Something went wrong, token has expired'
                     })
                 } 
                 else if (!decode) {

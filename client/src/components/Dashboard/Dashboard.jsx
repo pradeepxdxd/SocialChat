@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 
 export default function Dashboard() {
     // const { data, isLoading } = useGetTodosQuery(undefined, {
@@ -13,6 +13,10 @@ export default function Dashboard() {
     // if (isLoading) {
     //     return <Loading />;
     // }
+
+    useEffect(() => {
+        document.title = 'Dashboard';
+    }, []);
 
     return (
         <>

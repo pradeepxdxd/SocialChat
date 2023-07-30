@@ -1,23 +1,24 @@
-import {createApi, fetchBaseQuery} from '@reduxjs/toolkit/query/react';
-import {getToken} from '../../utils/common'
+import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
+import { getToken } from '../../utils/common'
 
 const postApi = createApi({
-    reducerPath : 'postApi',
-    baseQuery : fetchBaseQuery({
-        baseUrl : 'http://localhost:8000/api/post'
+    reducerPath: 'postApi',
+    baseQuery: fetchBaseQuery({
+        baseUrl: 'http://localhost:8000/api/post'
     }),
-    tagTypes : ['Posts'],
-    endpoints : builder => {
+    tagTypes: ['Posts'],
+    endpoints: builder => {
         return {
-            addPost : builder.mutation({
-                query : post => {
+            addPost: builder.mutation({
+                invalidatesTags: ['Posts'],
+                query: post => {
                     return {
-                        url : '/add',
-                        method : 'POST',
-                        headers : {
-                            'Authorization' : `Bearer ${getToken()}`
+                        url: '/add',
+                        method: 'POST',
+                        headers: {
+                            'Authorization': `Bearer ${getToken()}`
                         },
-                        body : post
+                        body: post
                     }
                 }
             }),
@@ -37,5 +38,5 @@ const postApi = createApi({
     }
 })
 
-export const {useAddPostMutation, useMyPostsQuery} = postApi;
-export {postApi};
+export const { useAddPostMutation, useMyPostsQuery } = postApi;
+export { postApi };

@@ -18,6 +18,10 @@ export default function Login() {
     const dispatch = useDispatch();
 
     useEffect(() => {
+        document.title = 'Login';
+    }, []);
+
+    useEffect(() => {
         if (isLoggedIn()) {
             navigate('/dashboard');
         }
