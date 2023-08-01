@@ -18,7 +18,6 @@ const ProtectedRoute = ({ children }) => {
 }
 
 function App() {
-
     return (
         <>
             <Router>

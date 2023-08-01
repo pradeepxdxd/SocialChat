@@ -13,3 +13,8 @@ export const isLoggedIn = () => {
 export const getToken = () => {
     return JSON.parse(localStorage.getItem('user')).token;
 }
+
+export const userInfo = () => {
+    const token = getToken();
+    return tokenDecode(token);
+}

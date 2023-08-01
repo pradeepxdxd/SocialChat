@@ -6,7 +6,8 @@ import {todoApi} from './apis/todo'
 import {userApi} from './apis/user'
 // import {postApi} from './apis/post'
 import postReducer from './slices/postSlice';
-import userReducer from './slices/userSlice'
+import userReducer from './slices/userSlice';
+import likeReducer from './slices/likeSlices'
 
 export const store = configureStore({
   reducer: {
@@ -17,7 +18,8 @@ export const store = configureStore({
     // [postApi.reducerPath] : postApi.reducer,
     auth : authReducer,
     post : postReducer,
-    user : userReducer
+    user : userReducer,
+    like : likeReducer
   },
   // Adding the api middleware enables caching, invalidation, polling,
   // and other useful features of `rtk-query`.

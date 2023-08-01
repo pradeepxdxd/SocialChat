@@ -58,7 +58,7 @@ export const login = async (req, res) => {
             })
         }
         else {
-            const token = createToken({ userId: userEmail._id, name: userEmail.name }, process.env.SECRET_KEY, '24h');
+            const token = createToken({ userId: userEmail._id, name: userEmail.name }, process.env.SECRET_KEY, '30d');
             res.status(200).send({
                 statusCode: 200,
                 msg: 'User logged in successfully',

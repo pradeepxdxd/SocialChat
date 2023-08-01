@@ -10,6 +10,7 @@ export const postLikeAndUnLike = async (req, res) => {
 
         if (ifLiked) {
             return res.status(200).send({
+                statusCode : 200,
                 msg : 'Post Unliked Successfully'
             })
         }
@@ -18,12 +19,13 @@ export const postLikeAndUnLike = async (req, res) => {
 
         if(postLiked) {
             res.status(201).send({
+                statusCode : 201,
                 msg : 'Post Liked Successfully'
             })
         }
     } 
     catch (error) {
-        res.status(500).send({msg : err.message});
+        res.status(500).send({msg : 'Internal Server Error'});
     }
 }
 

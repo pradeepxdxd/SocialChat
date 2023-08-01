@@ -1,3 +1,5 @@
+import mongoose from 'mongoose';
+import like from '../models/like.js';
 import Post from '../models/post.js'
 import User from '../models/user.js'
 
@@ -56,41 +58,173 @@ export const getPost = async (req, res) => {
 }
 
 // implement infinity scroll api
+// export const getMyPosts = async (req, res) => {
+//     try{
+//         const page = parseInt(req.query.page) || 1;
+//         const limit = 6;
+//         const skip = (page - 1) * limit;
+
+//         const posts = await Post.aggregate([
+//             // Match documents with the specified userId
+//             { $match: { userId: new mongoose.Types.ObjectId(req.user.userId) } },
+
+//             // Sort by createdAt in descending order
+//             { $sort: { createdAt: -1 } },
+
+//             // Skip the specified number of documents
+//             { $skip: skip },
+
+//             // Limit the number of documents to be retrieved
+//             { $limit: limit },
+
+//             // Perform a left join with the Like collection
+//             {
+//                 $lookup: {
+//                     from: 'likes',
+//                     localField: '_id',
+//                     foreignField: 'postId',
+//                     as: 'likes'
+//                 }
+//             },
+
+//             // Add a new field 'likeCount' that contains the count of likes for each post
+//             {
+//                 $addFields: {
+//                     likeCount: { $size: '$likes' }
+//                 }
+//             },
+
+//             // // Remove the 'likes' array from the output (optional, if not needed)
+//             {
+//                 $project: {
+//                     likes: 0
+//                 }
+//             },
+
+//             // Perform a left join with the User collection to fetch user details
+//             {
+//                 $lookup: {
+//                     from: 'users',
+//                     localField: 'userId',
+//                     foreignField: '_id',
+//                     as: 'userDetails'
+//                 }
+//             },
+
+//             // Unwind the 'userDetails' array as we expect only one user per post
+//             {
+//                 $unwind: {
+//                     path: '$userDetails',
+//                     preserveNullAndEmptyArrays: true // This will preserve posts without matching users
+//                 }
+//             }
+//         ]);
+
+//         if (posts && posts.length > 0) {
+//             res.status(200).send({
+//                 statusCode: 200,
+//                 msg: 'User posts fetched successfully',
+//                 posts
+//             });
+//         } 
+//         else {
+//             res.status(404).send({
+//                 statusCode: 404,
+//                 msg: 'No posts found for the user'
+//             });
+//         }
+//     }
+//     catch(err){
+//         res.status(500).send({msg : err.message});
+//     }
+// }
+
 export const getMyPosts = async (req, res) => {
-    try {
+    try{
         const page = parseInt(req.query.page) || 1;
         const limit = 6;
         const skip = (page - 1) * limit;
 
-        const posts = await Post.find({ userId: req.user.userId })
-            .sort({ createdAt: -1 })
-            .limit(limit)
-            .skip(skip)
-            .lean();
+        const posts = await Post.aggregate([
+            // Match documents with the specified userId
+            { $match: { userId: new mongoose.Types.ObjectId(req.user.userId) } },
 
-        const totalPost = await Post.countDocuments({ userId: req.user.userId });
+            // Sort by createdAt in descending order
+            { $sort: { createdAt: -1 } },
 
-        if (posts) {
+            // Skip the specified number of documents
+            { $skip: skip },
+
+            // Limit the number of documents to be retrieved
+            { $limit: limit },
+
+            // Perform a left join with the Like collection
+            {
+                $lookup: {
+                    from: 'likes',
+                    localField: '_id',
+                    foreignField: 'postId',
+                    as: 'likes'
+                }
+            },
+
+            {
+                $addFields: {
+                    likers : '$likes'
+                }
+            },
+
+            // Add a new field 'likeCount' that contains the count of likes for each post
+            {
+                $addFields: {
+                    likeCount: { $size: '$likes' }
+                }
+            },
+
+            // // Remove the 'likes' array from the output (optional, if not needed)
+            {
+                $project: {
+                    likes: 0
+                }
+            },
+
+            // Perform a left join with the User collection to fetch user details
+            {
+                $lookup: {
+                    from: 'users',
+                    localField: 'userId',
+                    foreignField: '_id',
+                    as: 'userDetails'
+                }
+            },
+
+            // Unwind the 'userDetails' array as we expect only one user per post
+            {
+                $unwind: {
+                    path: '$userDetails',
+                    preserveNullAndEmptyArrays: true // This will preserve posts without matching users
+                }
+            },
+        ]);
+
+        if (posts && posts.length > 0) {
             res.status(200).send({
                 statusCode: 200,
                 msg: 'User posts fetched successfully',
-                posts,
-                countPost : posts.length,
-                totalPost
+                posts
             });
-        } else {
-            res.status(400).send({
-                statusCode: 400,
-                msg: 'Something went wrong'
+        } 
+        else {
+            res.status(404).send({
+                statusCode: 404,
+                msg: 'No posts found for the user'
             });
         }
-    } catch (err) {
-        res.status(500).send({
-            statusCode: 500,
-            msg: 'Internal Server Error'
-        });
     }
-};
+    catch(err){
+        res.status(500).send({msg : err.message});
+    }
+}
 
 export const socialMediaDemo = async (req , res) => {
     try {

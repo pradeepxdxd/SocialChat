@@ -1,4 +1,7 @@
 import React, { useEffect } from "react";
+import { getToken, tokenDecode } from "../../utils/common";
+import { useDispatch } from "react-redux";
+import { setUser } from "../../redux/slices/authSlices";
 
 export default function Dashboard() {
     // const { data, isLoading } = useGetTodosQuery(undefined, {
@@ -14,9 +17,14 @@ export default function Dashboard() {
     //     return <Loading />;
     // }
 
+    const dispatch = useDispatch();
+
     useEffect(() => {
-        document.title = 'Dashboard';
-    }, []);
+        document.title = "Dashboard";
+        const token = getToken();
+        const decodeToken = tokenDecode(token);
+        dispatch(setUser({ name: decodeToken.name, token: token }));
+    }, [dispatch]);
 
     return (
         <>

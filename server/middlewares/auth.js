@@ -8,13 +8,13 @@ export const auth = (req, res, next) => {
         if (token) {
             jwt.verify(token, process.env.SECRET_KEY, async (err, decode) => {
                 if (err){
-                    res.status(400).send({
+                    res.status(403).send({
                         statusCode : 400,
                         msg : 'Something went wrong, token has expired'
                     })
                 } 
                 else if (!decode) {
-                    res.status(401).send({
+                    res.status(403).send({
                         statusCode : 401,
                         msg : 'User not authorized'
                     })
