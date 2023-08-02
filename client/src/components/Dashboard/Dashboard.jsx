@@ -2,21 +2,10 @@ import React, { useEffect } from "react";
 import { getToken, tokenDecode } from "../../utils/common";
 import { useDispatch } from "react-redux";
 import { setUser } from "../../redux/slices/authSlices";
+import { Button, Card, Col, Container, Row } from "react-bootstrap";
+import './Dashboard.css'
 
 export default function Dashboard() {
-    // const { data, isLoading } = useGetTodosQuery(undefined, {
-    //     refetchOnMountOrArgChange: true,
-    // });
-    // const dispatch = useDispatch();
-
-    // useEffect(() => {
-    //     dispatch(getUser());
-    // }, [dispatch]);
-
-    // if (isLoading) {
-    //     return <Loading />;
-    // }
-
     const dispatch = useDispatch();
 
     useEffect(() => {
@@ -28,22 +17,31 @@ export default function Dashboard() {
 
     return (
         <>
-            Dashboard
-            {/* {data.todos.length === 0 ? (
-                <div>
-                    <blockquote className="quote text-center mt-5">
-                        <p>There is no any todo yet!</p>
-                    </blockquote>
-                </div>
-            ) : (
-                <div className="text-center mt-5">
-                    <h3>Todos</h3>
-                    {data.todos?.map((todo) => (
-                        <AllTodos key={todo._id} todo={todo} />
-                    ))}
-                </div>
-            )} */}
-            <br />
+            <div className="mt-5">
+                <Container fluid>
+                    <Row>
+                        <Col md={3} className="sidebar">
+                            <h2>Dashboard Sidebar</h2>
+                            <ul>
+                                <li>Dashboard</li>
+                                <li>Charts</li>
+                                <li>Tables</li>
+                            </ul>
+                        </Col>
+                        <Col md={9} className="content">
+                            <Card>
+                                <Card.Header>
+                                    <h3>Welcome to Your Dashboard</h3>
+                                </Card.Header>
+                                <Card.Body>
+                                    <p>This is a sample content for your dashboard.</p>
+                                    <Button variant="primary">Learn More</Button>
+                                </Card.Body>
+                            </Card>
+                        </Col>
+                    </Row>
+                </Container>
+            </div>
         </>
     );
 }

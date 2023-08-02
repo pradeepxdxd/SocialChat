@@ -9,6 +9,7 @@ import authRoute from './routers/auth.routes.js';
 import postRoute from './routers/post.routes.js';
 import userRoute from './routers/user.routes.js';
 import likeRoute from './routers/like.routes.js';
+import commentRoute from './routers/comment.routes.js';
 
 const app = express();
 const PORT = 8000;
@@ -30,5 +31,6 @@ app.use('/api/auth', authRoute);
 app.use('/api/post', postRoute);
 app.use('/api/user', userRoute);
 app.use('/api/like', likeRoute);
+app.use('/api/comment', commentRoute);
 
 app.listen(PORT, () => console.log(`Server is running on ${PORT}`.bold.underline));

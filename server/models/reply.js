@@ -1,6 +1,14 @@
 import mongoose from "mongoose";
 
-const commentSchema = new mongoose.Schema({
+const ReplySchema = new mongoose.Schema({
+    postId : {
+        type : mongoose.Types.ObjectId,
+        required : true
+    },
+    commentId : {
+        type : mongoose.Types.ObjectId,
+        required : true
+    },
     posterId : {
         type : mongoose.Types.ObjectId,
         required : true
@@ -11,8 +19,8 @@ const commentSchema = new mongoose.Schema({
     // },
     comment : {
         type : String,
-        required : true,
+        required : true
     }
 }, {timestamps : true});
 
-export default mongoose.model('Comment', commentSchema);
+export default mongoose.model('Reply', ReplySchema);

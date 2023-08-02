@@ -10,7 +10,11 @@ export default function MyPost() {
         document.title = 'Post';
     }, [])
 
-    return(
-        <InfinityScroller api={getMyPosts} limit={6} Templete={Post} />
+    return (
+        <>
+            <div className='mt-3'>
+                <InfinityScroller api={getMyPosts} limit={6} Templete={Post} />
+            </div>
+        </>
     )
 }
