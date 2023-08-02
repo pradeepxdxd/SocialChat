@@ -1,14 +1,15 @@
 import React, { useEffect } from 'react';
-import { Form, Button, Container, Row, Col } from 'react-bootstrap';
+import { Form, Button, Row, Col } from 'react-bootstrap';
 import { useSignUpMutation } from '../../redux/apis/auth';
 import { Alert } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import Loading from '../Loaders/Loading'
+import './SignUp.css'
 
 const SignUp = () => {
-    const [doSignUp, { error, isLoading, isSuccess}] = useSignUpMutation();
+    const [doSignUp, { error, isLoading, isSuccess }] = useSignUpMutation();
 
     const validationSchema = Yup.object().shape({
         name: Yup.string()
@@ -50,9 +51,10 @@ const SignUp = () => {
         document.title = 'Sign Up';
     }, []);
 
-    if (isLoading) return <Loading/>
+    if (isLoading) return <Loading />
 
     const handleSubmit = values => {
+        console.log(values)
         const formData = new FormData();
         formData.append('name', values.name);
         formData.append('email', values.email);
@@ -63,135 +65,133 @@ const SignUp = () => {
 
         doSignUp(formData);
     }
-    
+
     const handleChange = e => {
         formik.setFieldValue('profileImg', e.target.files[0]);
     }
 
     return (
-        <Container>
-            <Row className="justify-content-center mt-5">
-                <Col xs={12} sm={8} md={6}>
-                    <h3 className='text-center' style={{ fontFamily: "initial", fontStyle: 'revert' }}>Sign Up</h3>
+        <>
+            <div className='center-signup-page mt-5'>
+                <Form className="form_main" onSubmit={formik.handleSubmit}>
+                    <p className="heading">Sign Up</p>
                     {
-                        error && <Alert variant='danger'>
+                        error && <Alert variant='danger' style={{width : '321px'}}>
                             {error.data.msg}
                         </Alert>
                     }
                     {
-                        isSuccess && <Alert variant='success'>
+                        isSuccess && <Alert variant='success' style={{width : '321px'}}>
                             Registration Successfully
                         </Alert>
                     }
+                    <Form.Group controlId="name" className='inputContainer'>
+                        <Form.Control
+                            className='inputField'
+                            type="text"
+                            placeholder="Enter your name"
+                            value={formik.values.name}
+                            name='name'
+                            onChange={formik.handleChange}
+                        />
+                        <Form.Text>
+                            {formik.errors.name && formik.touched.name && <><p style={{ color: 'red' }}>{formik.errors.name}</p></>}
+                        </Form.Text>
+                    </Form.Group>
 
-                    <Form onSubmit={formik.handleSubmit}>
-                        <Form.Group controlId="name">
-                            <Form.Label>Name</Form.Label>
-                            <Form.Control
-                                type="text"
-                                placeholder="Enter your name"
-                                value={formik.values.name}
-                                name='name'
-                                onChange={formik.handleChange}
-                            />
-                            <Form.Text>
-                                {formik.errors.name && formik.touched.name && <><p style={{color:'red'}}>{formik.errors.name}</p></>}
-                            </Form.Text>
-                        </Form.Group>
+                    <Form.Group controlId="email" className='inputContainer'>
+                        <Form.Control
+                            className='inputField'
+                            type="email"
+                            placeholder="Enter your email"
+                            name='email'
+                            value={formik.values.email}
+                            onChange={formik.handleChange}
+                        />
+                        <Form.Text>
+                            {formik.errors.email && formik.touched.email && <><p style={{ color: 'red' }}>{formik.errors.email}</p></>}
+                        </Form.Text>
+                    </Form.Group>
 
-                        <Form.Group controlId="email">
-                            <Form.Label>Email</Form.Label>
-                            <Form.Control
-                                type="email"
-                                placeholder="Enter your email"
-                                name='email'
-                                value={formik.values.email}
-                                onChange={formik.handleChange}
-                            />
-                            <Form.Text>
-                                {formik.errors.email && formik.touched.email && <><p style={{color:'red'}}>{formik.errors.email}</p></>}
-                            </Form.Text>
-                        </Form.Group>
+                    <Form.Group controlId="password" className='inputContainer'>
+                        <Form.Control
+                            className='inputField'
+                            type="password"
+                            placeholder="Enter your password"
+                            name='password'
+                            value={formik.values.password}
+                            onChange={formik.handleChange}
+                        />
+                        <Form.Text>
+                            {formik.errors.password && formik.touched.password && <><p style={{ color: 'red' }}>{formik.errors.password}</p></>}
+                        </Form.Text>
+                    </Form.Group>
 
-                        <Form.Group controlId="password">
-                            <Form.Label>Password</Form.Label>
-                            <Form.Control
-                                type="password"
-                                placeholder="Enter your password"
-                                name='password'
-                                value={formik.values.password}
-                                onChange={formik.handleChange}
-                            />
-                            <Form.Text>
-                                {formik.errors.password && formik.touched.password && <><p style={{color:'red'}}>{formik.errors.password}</p></>}
-                            </Form.Text>
-                        </Form.Group>
+                    <Form.Group controlId="confirmpassword" className='inputContainer'>
+                        <Form.Control
+                            type="password"
+                            placeholder="Enter your confirm password"
+                            name='confirmPassword'
+                            value={formik.values.confirmPassword}
+                            onChange={formik.handleChange}
+                            className='inputField'
+                        />
+                        <Form.Text>
+                            {formik.errors.confirmPassword && formik.touched.confirmPassword && <><p style={{ color: 'red' }}>{formik.errors.confirmPassword}</p></>}
+                        </Form.Text>
+                    </Form.Group>
 
-                        <Form.Group controlId="confirmpassword">
-                            <Form.Label>Confirm Password</Form.Label>
-                            <Form.Control
-                                type="password"
-                                placeholder="Enter your confirm password"
-                                name='confirmPassword'
-                                value={formik.values.confirmPassword}
-                                onChange={formik.handleChange}
-                            />
-                            <Form.Text>
-                                {formik.errors.confirmPassword && formik.touched.confirmPassword && <><p style={{color:'red'}}>{formik.errors.confirmPassword}</p></>}
-                            </Form.Text>
-                        </Form.Group>
+                    <Form.Group controlId="phone" className='inputContainer'>
+                        <Form.Control
+                            className='inputField'
+                            type="text"
+                            placeholder="Enter your Phone"
+                            name='phone'
+                            value={formik.values.phone}
+                            onChange={formik.handleChange}
+                        />
+                        <Form.Text>
+                            {formik.errors.phone && formik.touched.phone && <><p style={{ color: 'red' }}>{formik.errors.phone}</p></>}
+                        </Form.Text>
+                    </Form.Group>
 
-                        <Form.Group controlId="phone">
-                            <Form.Label>Phone</Form.Label>
-                            <Form.Control
-                                type="text"
-                                placeholder="Enter your Phone"
-                                name='phone'
-                                value={formik.values.phone}
-                                onChange={formik.handleChange}
-                            />
-                            <Form.Text>
-                                {formik.errors.phone && formik.touched.phone && <><p style={{color:'red'}}>{formik.errors.phone}</p></>}
-                            </Form.Text>
-                        </Form.Group>
+                    <Form.Group controlId="address" className='inputContainer'>
+                        <Form.Control
+                            type="text"
+                            className='inputField'
+                            placeholder="Enter your address"
+                            name='address'
+                            value={formik.values.address}
+                            onChange={formik.handleChange}
+                        />
+                        <Form.Text>
+                            {formik.errors.address && formik.touched.address && <><p style={{ color: 'red' }}>{formik.errors.address}</p></>}
+                        </Form.Text>
+                    </Form.Group>
 
-                        <Form.Group controlId="address">
-                            <Form.Label>Address</Form.Label>
-                            <Form.Control
-                                type="text"
-                                placeholder="Enter your address"
-                                name='address'
-                                value={formik.values.address}
-                                onChange={formik.handleChange}
-                            />
-                            <Form.Text>
-                                {formik.errors.address && formik.touched.address && <><p style={{color:'red'}}>{formik.errors.address}</p></>}
-                            </Form.Text>
-                        </Form.Group>
-
-                        <Form.Group controlId="profileImg">
-                            <Form.Label>Profile Image</Form.Label>
-                            <Form.Control
-                                type="file"
-                                placeholder="Enter your Profile Image"
-                                name='profileImg'
-                                onChange={handleChange}
-                            />
-                            <Form.Text>
-                                {formik.errors.profileImg && formik.touched.profileImg && <><p style={{color:'red'}}>{formik.errors.profileImg}</p></>}
-                            </Form.Text>
-                        </Form.Group>
-
-                        <Button variant="primary" type="submit" className='mt-3'>
-                            Register
-                        </Button>
-                    </Form>
-                    <div className='mt-3'>
-                        <p>Already have an account?<span> <Link to='/'>Login</Link></span></p>
-                    </div>
-                </Col>
-            </Row>
-        </Container>
+                    <Form.Group controlId="profileImg" className='inputContainer'>
+                        <Form.Control
+                            className='inputField'
+                            type="file"
+                            placeholder="Enter your Profile Image"
+                            name='profileImg'
+                            onChange={handleChange}
+                        />
+                        <Form.Text>
+                            {formik.errors.profileImg && formik.touched.profileImg && <><p style={{ color: 'red' }}>{formik.errors.profileImg}</p></>}
+                        </Form.Text>
+                    </Form.Group>
+                    <Button id="button" type="submit">Sign Up</Button>
+                    <Row className="mt-2">
+                        <Col className="d-flex justify-content-end">
+                            <div className="signupContainer">
+                                <p>Already have an account? <Link to='/'>Login</Link></p>
+                            </div>
+                        </Col>
+                    </Row>
+                </Form>
+            </div>
+        </>
     );
 };
 

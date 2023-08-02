@@ -1,12 +1,15 @@
 import React, { useEffect } from "react";
 import { Form, Button, Container, Row, Col, Alert } from "react-bootstrap";
+import { ToastContainer } from 'react-toastify'
 import { useAddPostMutation } from "../../redux/apis/post";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import Loading from "../Loaders/Loading";
+import 'react-toastify/dist/ReactToastify.css';
+import { toastSuccess, toastFailer } from '../../utils/alerts'
 
 const AddPost = () => {
-    const [addPost, { data, error, isLoading, isSuccess }] = useAddPostMutation();
+    const [addPost, { data: postData, error, isLoading, isSuccess }] = useAddPostMutation();
 
     useEffect(() => {
         document.title = "Add Post";
@@ -24,7 +27,14 @@ const AddPost = () => {
         },
         validationSchema,
         onSubmit: (data) => {
+            toastSuccess('Post Successfully Added')
             handleSubmit(data);
+            // if (!error.data.msg) {
+            //     toastSuccess(postData.msg)
+            // }
+            // else {
+            //     toastFailer(error.data.msg)
+            // }
         },
     });
 
@@ -41,6 +51,7 @@ const AddPost = () => {
 
     return (
         <Container>
+            <ToastContainer />
             <Row className="justify-content-center mt-5">
                 <Col xs={12} sm={8} md={6}>
                     <h3
@@ -49,7 +60,7 @@ const AddPost = () => {
                     >
                         Add Post
                     </h3>
-                    {isSuccess && <Alert variant="success">{data.msg}</Alert>}
+                    {isSuccess && <Alert variant="success">{postData.msg}</Alert>}
                     {error && <Alert variant="danger">{error.data.msg}</Alert>}
                     <Form onSubmit={formik.handleSubmit}>
                         <Form.Group controlId="location">

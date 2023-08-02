@@ -2,18 +2,22 @@ import React, { useEffect, useState } from 'react'
 import InfinityScrollTemplate from './InfinityScrollTemplate';
 import { useDispatch, useSelector } from 'react-redux'
 import {getUserInfo} from '../../redux/thunk/user'
+import Loading from '../Loaders/Loading'
 
 export default function InfinityScroller({ api, limit, Templete }) {
     const [data, setData] = useState([]);
     const [page, setPage] = useState(0);
     const [key] = useState(0);
     const [loading, setLoading] = useState(true);
+    const [mainLoading, setMainLoading] = useState(true);
 
     const user = useSelector(state => state.user);
 
     const dispatch = useDispatch();
 
     useEffect(() => {
+        setMainLoading(true);
+
         const fetchApi = async () => {
             dispatch(getUserInfo());
             try {
@@ -22,9 +26,9 @@ export default function InfinityScroller({ api, limit, Templete }) {
                     setLoading(false);
                 }
                 if (response && response.payload && response.payload.posts) {
+                    setMainLoading(false);
                     setData(response.payload.posts);
                 }
-
             } catch (error) {
                 console.error('Error fetching data:', error);
             }
@@ -39,6 +43,10 @@ export default function InfinityScroller({ api, limit, Templete }) {
             dispatch(getUserInfo());
             try {
                 const response = await dispatch(api(page+1));
+                console.log()
+                if (response.payload.statusCode === 203){
+                    setLoading(false);
+                }
                 if (response && response.payload && response.payload.posts.length === 0){
                     setLoading(false);
                 }
@@ -52,6 +60,10 @@ export default function InfinityScroller({ api, limit, Templete }) {
         };
         fetchApi();
     };
+
+    if (mainLoading) {
+        return <Loading />
+    }
 
     return (
         <>

@@ -50,7 +50,7 @@ function App() {
                             <ChangePassword />
                         </ProtectedRoute>
                     } />
-                    <Route path="/forget_password" element={
+                    <Route path="/forgot-password" element={
                         <ForgetPassword />
                     } />
                     <Route path="/reset_password/:token" element={

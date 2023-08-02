@@ -215,8 +215,8 @@ export const getMyPosts = async (req, res) => {
             });
         } 
         else {
-            res.status(404).send({
-                statusCode: 404,
+            res.status(203).send({
+                statusCode: 203,
                 msg: 'No posts found for the user'
             });
         }

@@ -9,7 +9,101 @@ import { useDispatch } from 'react-redux';
 import { setUser } from '../../redux/slices/authSlices'
 import Loading from '../Loaders/Loading'
 
-export default function Login() {
+// export default function Login() {
+//     const [email, setEmail] = useState('');
+//     const [password, setPassword] = useState('');
+
+//     const [doLogin, { isLoading, error, isError, isSuccess, data }] = useLoginMutation();
+//     const navigate = useNavigate();
+//     const dispatch = useDispatch();
+
+//     useEffect(() => {
+//         document.title = 'Login';
+//     }, []);
+
+//     useEffect(() => {
+//         if (isLoggedIn()) {
+//             navigate('/dashboard');
+//         }
+//         else navigate('/');
+//     }, [navigate]);
+
+//     const handleSubmit = e => {
+//         e.preventDefault();
+//         doLogin({ email, password });
+//     }
+
+//     if (isLoading) {
+//         return <Loading />
+//     }
+//     else if (isSuccess) {
+//         const decode = tokenDecode(data.token);
+//         dispatch(setUser({ name: decode.name, token: data.token }));
+//         navigate('/dashboard');
+//     }
+
+//     return (
+//         <>
+//             <Container>
+//                 <Row className="justify-content-center mt-5">
+//                     <Col xs={12} sm={8} md={6}>
+//                         <h3 className='text-center' style={{ fontFamily: "initial", fontStyle: 'revert' }}>Login</h3>
+//                         <Form onSubmit={handleSubmit}>
+//                             {
+//                                 isError && <Alert variant='danger'>
+//                                     {error.data.msg}
+//                                 </Alert>
+//                             }
+
+//                             <Form.Group controlId="email">
+//                                 <Form.Label>Email</Form.Label>
+//                                 <Form.Control
+//                                     type="email"
+//                                     placeholder="Enter your email"
+//                                     value={email}
+//                                     onChange={(e) => setEmail(e.target.value)}
+//                                 />
+//                             </Form.Group>
+
+//                             <Form.Group controlId="password">
+//                                 <Form.Label>Password</Form.Label>
+//                                 <Form.Control
+//                                     type="password"
+//                                     placeholder="Enter your password"
+//                                     value={password}
+//                                     onChange={(e) => setPassword(e.target.value)}
+//                                 />
+//                             </Form.Group>
+
+//                             <Button variant="primary" type="submit" className='mt-3'>
+//                                 Login
+//                             </Button>
+//                         </Form>
+//                         <div>
+//                             <Row>
+//                                 <Col>
+//                                     <p className="mt-3">
+//                                         <Link to='/forget_password'> Forget Password</Link>
+//                                     </p>
+//                                 </Col>
+//                                 <Col>
+//                                     <p className='mt-3'>Don't have an account?<span><Link to='/signup'> SignUp</Link></span></p>
+//                                 </Col>
+//                             </Row>
+//                         </div>
+//                     </Col>
+//                 </Row>
+//             </Container>
+//         </>
+//     )
+// }
+
+import './Login.css'
+// import React from 'react';
+// import { Link } from 'react-router-dom';
+// import { Form, Button, Row, Col } from 'react-bootstrap';
+
+const Login = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
 
@@ -44,56 +138,76 @@ export default function Login() {
 
     return (
         <>
-            <Container>
-                <Row className="justify-content-center mt-5">
-                    <Col xs={12} sm={8} md={6}>
-                        <h3 className='text-center' style={{ fontFamily: "initial", fontStyle: 'revert' }}>Login</h3>
-                        <Form onSubmit={handleSubmit}>
-                            {
-                                isError && <Alert variant='danger'>
-                                    {error.data.msg}
-                                </Alert>
-                            }
+            <div className='center-login-page'>
+                <Form className="form_main">
+                    <p className="heading">Login</p>
+                    {
+                        isError && 
+                        <Alert variant='danger' style={{width: '310px'}}>
+                            {error.data.msg}
+                        </Alert>
+                    }
+                    <Form.Group className="inputContainer">
+                        <svg
+                            viewBox="0 0 16 16"
+                            fill="#2e2e2e"
+                            height="16"
+                            width="16"
+                            xmlns="http://www.w3.org/2000/svg"
+                            className="inputIcon"
+                        >
+                            <path d="M13.106 7.222c0-2.967-2.249-5.032-5.482-5.032-3.35 0-5.646 2.318-5.646 5.702 0 3.493 2.235 5.708 5.762 5.708.862 0 1.689-.123 2.304-.335v-.862c-.43.199-1.354.328-2.29.328-2.926 0-4.813-1.88-4.813-4.798 0-2.844 1.921-4.881 4.594-4.881 2.735 0 4.608 1.688 4.608 4.156 0 1.682-.554 2.769-1.416 2.769-.492 0-.772-.28-.772-.76V5.206H8.923v.834h-.11c-.266-.595-.881-.964-1.6-.964-1.4 0-2.378 1.162-2.378 2.823 0 1.737.957 2.906 2.379 2.906.8 0 1.415-.39 1.709-1.087h.11c.081.67.703 1.148 1.503 1.148 1.572 0 2.57-1.415 2.57-3.643zm-7.177.704c0-1.197.54-1.907 1.456-1.907.93 0 1.524.738 1.524 1.907S8.308 9.84 7.371 9.84c-.895 0-1.442-.725-1.442-1.914z"></path>
 
-                            <Form.Group controlId="email">
-                                <Form.Label>Email</Form.Label>
-                                <Form.Control
-                                    type="email"
-                                    placeholder="Enter your email"
-                                    value={email}
-                                    onChange={(e) => setEmail(e.target.value)}
-                                />
-                            </Form.Group>
+                        </svg>
+                        <Form.Control
+                            placeholder="Email"
+                            id="username"
+                            className="inputField"
+                            type="username"
+                            onChange={e => setEmail(e.target.value)}
+                        />
+                    </Form.Group>
 
-                            <Form.Group controlId="password">
-                                <Form.Label>Password</Form.Label>
-                                <Form.Control
-                                    type="password"
-                                    placeholder="Enter your password"
-                                    value={password}
-                                    onChange={(e) => setPassword(e.target.value)}
-                                />
-                            </Form.Group>
+                    <Form.Group className="inputContainer">
+                        <svg
+                            viewBox="0 0 16 16"
+                            fill="#2e2e2e"
+                            height="16"
+                            width="16"
+                            xmlns="http://www.w3.org/2000/svg"
+                            className="inputIcon"
+                        >
+                            {/* ... SVG Path ... */}
+                            <path d="M8 1a2 2 0 0 1 2 2v4H6V3a2 2 0 0 1 2-2zm3 6V3a3 3 0 0 0-6 0v4a2 2 0 0 0-2 2v5a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2z"></path>
 
-                            <Button variant="primary" type="submit" className='mt-3'>
-                                Login
-                            </Button>
-                        </Form>
-                        <div>
-                            <Row>
-                                <Col>
-                                    <p className="mt-3">
-                                        <Link to='/forget_password'> Forget Password</Link>
-                                    </p>
-                                </Col>
-                                <Col>
-                                    <p className='mt-3'>Don't have an account?<span><Link to='/signup'> SignUp</Link></span></p>
-                                </Col>
-                            </Row>
-                        </div>
-                    </Col>
-                </Row>
-            </Container>
+                        </svg>
+                        <Form.Control
+                            placeholder="Password"
+                            id="password"
+                            className="inputField"
+                            type="password"
+                            onChange={e => setPassword(e.target.value)}
+                        />
+                    </Form.Group>
+
+                    <Button onClick={handleSubmit} id="button" type="submit">Submit</Button>
+                    <Row>
+                        <Col>
+                            <div className='mx-5'>
+                                <Link to='/forgot-password' style={{ fontSize: '12px' }}>Forgot Password?</Link>
+                            </div>
+                        </Col>
+                        <Col>
+                            <div className="signupContainer mx-4">
+                                {/* <p>Don't have an account?</p> */}
+                                <Link to='/signup'>Sign Up</Link>
+                            </div>
+                        </Col>
+                    </Row>
+                </Form>
+            </div>
         </>
-    )
-}
+    );
+};
+
+export default Login;

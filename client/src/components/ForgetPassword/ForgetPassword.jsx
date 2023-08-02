@@ -31,10 +31,12 @@ function ForgetPassword() {
 
     return (
         <>
+        <div className="center-fp">
+
             {isSuccess ? (
                 <Template props={data.msg} path={"/"} pathText={"Login"} />
-            ) : (
-                <Container>
+                ) : (
+                    <Container>
                     <Row className="justify-content-center mt-5">
                         <Col md={6}>
                             <Card>
@@ -71,6 +73,7 @@ function ForgetPassword() {
                     </Row>
                 </Container>
             )}
+                    </div>
         </>
     );
 }
