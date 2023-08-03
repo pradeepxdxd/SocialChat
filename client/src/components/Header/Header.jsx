@@ -6,7 +6,7 @@ import { logout } from '../../redux/slices/authSlices';
 import { useDispatch } from 'react-redux';
 import { useCallback } from 'react';
 import { NavDropdown } from 'react-bootstrap';
-
+import './Header.css'
 
 function BasicExample() {
     const auth = isLoggedIn();
@@ -22,11 +22,11 @@ function BasicExample() {
     return (
         <Navbar bg="light" expand="lg" fixed="top">
             {auth ? (
-                <Navbar.Brand className='mx-2' style={{color:'#fc03a5'}} as={Link} to='/dashboard'>Instagram</Navbar.Brand>
+                <Navbar.Brand className='mx-2 animated-text'  as={Link} to='/dashboard'>Nexus</Navbar.Brand>
             ) : (
                 <Navbar.Brand className='mx-2' as={Link} to='/'>Home</Navbar.Brand>
             )}
-
+{/* style={{color:'#fc03a5'}} */}
             <Navbar.Toggle aria-controls="basic-navbar-nav" />
             <Navbar.Collapse id="basic-navbar-nav">
                 <Nav className="me-auto">

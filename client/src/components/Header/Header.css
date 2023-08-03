@@ -1,0 +1,29 @@
+@import url('https://fonts.googleapis.com/css2?family=Cedarville+Cursive&family=Recursive:wght@300&family=Roboto:ital,wght@0,300;1,500&display=swap');
+
+
+.animated-text {
+    /* font-size: 36px; */
+    animation: changeColor 4s infinite alternate;
+}
+
+@keyframes changeColor {
+    0% {
+        color: red;
+    }
+
+    25% {
+        color: blue;
+    }
+
+    50% {
+        color: green;
+    }
+
+    75% {
+        color: purple;
+    }
+
+    100% {
+        color: orange;
+    }
+}

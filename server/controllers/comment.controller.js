@@ -3,13 +3,13 @@ import Reply from "../models/reply.js"
 
 export const doComment = async (req, res) => {
     try {
-        const {posterId} = req.query;
+        const {posterId, postId} = req.query;
 
         const {comment} = req.body;
 
-        const commenterId = req.user.userId;
+        const commenterId = '64ca8d9e5634c963a000cadb';
 
-        const com = await Comment.create({commenterId, posterId, comment});
+        const com = await Comment.create({commenterId, posterId, comment, postId});
 
         if (com) {
             res.status(201).send({statusCode : 201, msg : 'Post Commented Successfully'});
@@ -60,3 +60,11 @@ export const replyComment = async (req, res) => {
     }
 }
 
+export const getComment = async (req, res) => {
+    try {
+        
+    } 
+    catch (error) {
+        res.status(500).send({statusCode : 500, msg : 'Internal Server Error'});
+    }
+}

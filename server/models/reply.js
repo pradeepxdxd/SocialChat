@@ -9,14 +9,10 @@ const ReplySchema = new mongoose.Schema({
         type : mongoose.Types.ObjectId,
         required : true
     },
-    posterId : {
+    posterId : {                                    // commenter 
         type : mongoose.Types.ObjectId,
         required : true
     },
-    // commenterId : {                              //  taking from jwt token
-    //     type : mongoose.Types.ObjectId,
-    //     required : true
-    // },
     comment : {
         type : String,
         required : true
