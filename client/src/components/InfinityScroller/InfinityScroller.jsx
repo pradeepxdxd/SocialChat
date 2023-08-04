@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import InfinityScrollTemplate from './InfinityScrollTemplate';
 import { useDispatch, useSelector } from 'react-redux'
-import {getUserInfo} from '../../redux/thunk/user'
+import { getUserInfo } from '../../redux/thunk/user'
 import Loading from '../Loaders/Loading'
 
 export default function InfinityScroller({ api, limit, Templete }) {
@@ -22,12 +22,12 @@ export default function InfinityScroller({ api, limit, Templete }) {
             dispatch(getUserInfo());
             try {
                 const response = await dispatch(api(page));
-                if (response && response.payload && response.payload.posts.length === 0){
+                if (response && response.payload && response.payload.data.length === 0) {
                     setLoading(false);
                 }
-                if (response && response.payload && response.payload.posts) {
+                if (response && response.payload && response.payload.data) {
                     setMainLoading(false);
-                    setData(response.payload.posts);
+                    setData(response.payload.data);
                 }
             } catch (error) {
                 console.error('Error fetching data:', error);
@@ -42,16 +42,16 @@ export default function InfinityScroller({ api, limit, Templete }) {
         const fetchApi = async () => {
             dispatch(getUserInfo());
             try {
-                const response = await dispatch(api(page+1));
+                const response = await dispatch(api(page + 1));
                 console.log()
-                if (response.payload.statusCode === 203){
+                if (response.payload.statusCode === 203) {
                     setLoading(false);
                 }
-                if (response && response.payload && response.payload.posts.length === 0){
+                if (response && response.payload && response.payload.data.length === 0) {
                     setLoading(false);
                 }
-                if (response && response.payload && response.payload.posts) {
-                    setData(prevData => prevData.concat(response.payload.posts));
+                if (response && response.payload && response.payload.data) {
+                    setData(prevData => prevData.concat(response.payload.data));
                 }
 
             } catch (error) {

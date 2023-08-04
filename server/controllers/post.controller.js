@@ -1,5 +1,5 @@
 import mongoose from 'mongoose';
-import like from '../models/like.js';
+import ike from '../models/like.js';
 import Post from '../models/post.js'
 import User from '../models/user.js'
 
@@ -64,7 +64,7 @@ export const getPost = async (req, res) => {
 //         const limit = 6;
 //         const skip = (page - 1) * limit;
 
-//         const posts = await Post.aggregate([
+//         const data = await Post.aggregate([
 //             // Match documents with the specified userId
 //             { $match: { userId: new mongoose.Types.ObjectId(req.user.userId) } },
 
@@ -84,6 +84,12 @@ export const getPost = async (req, res) => {
 //                     localField: '_id',
 //                     foreignField: 'postId',
 //                     as: 'likes'
+//                 }
+//             },
+
+//             {
+//                 $addFields: {
+//                     likers : '$likes'
 //                 }
 //             },
 
@@ -117,19 +123,19 @@ export const getPost = async (req, res) => {
 //                     path: '$userDetails',
 //                     preserveNullAndEmptyArrays: true // This will preserve posts without matching users
 //                 }
-//             }
+//             },
 //         ]);
 
-//         if (posts && posts.length > 0) {
+//         if (data && data.length > 0) {
 //             res.status(200).send({
 //                 statusCode: 200,
 //                 msg: 'User posts fetched successfully',
-//                 posts
+//                 data
 //             });
 //         } 
 //         else {
-//             res.status(404).send({
-//                 statusCode: 404,
+//             res.status(203).send({
+//                 statusCode: 203,
 //                 msg: 'No posts found for the user'
 //             });
 //         }
@@ -139,94 +145,7 @@ export const getPost = async (req, res) => {
 //     }
 // }
 
-export const getMyPosts = async (req, res) => {
-    try{
-        const page = parseInt(req.query.page) || 1;
-        const limit = 6;
-        const skip = (page - 1) * limit;
-
-        const posts = await Post.aggregate([
-            // Match documents with the specified userId
-            { $match: { userId: new mongoose.Types.ObjectId(req.user.userId) } },
-
-            // Sort by createdAt in descending order
-            { $sort: { createdAt: -1 } },
-
-            // Skip the specified number of documents
-            { $skip: skip },
-
-            // Limit the number of documents to be retrieved
-            { $limit: limit },
-
-            // Perform a left join with the Like collection
-            {
-                $lookup: {
-                    from: 'likes',
-                    localField: '_id',
-                    foreignField: 'postId',
-                    as: 'likes'
-                }
-            },
-
-            {
-                $addFields: {
-                    likers : '$likes'
-                }
-            },
-
-            // Add a new field 'likeCount' that contains the count of likes for each post
-            {
-                $addFields: {
-                    likeCount: { $size: '$likes' }
-                }
-            },
-
-            // // Remove the 'likes' array from the output (optional, if not needed)
-            {
-                $project: {
-                    likes: 0
-                }
-            },
-
-            // Perform a left join with the User collection to fetch user details
-            {
-                $lookup: {
-                    from: 'users',
-                    localField: 'userId',
-                    foreignField: '_id',
-                    as: 'userDetails'
-                }
-            },
-
-            // Unwind the 'userDetails' array as we expect only one user per post
-            {
-                $unwind: {
-                    path: '$userDetails',
-                    preserveNullAndEmptyArrays: true // This will preserve posts without matching users
-                }
-            },
-        ]);
-
-        if (posts && posts.length > 0) {
-            res.status(200).send({
-                statusCode: 200,
-                msg: 'User posts fetched successfully',
-                posts
-            });
-        } 
-        else {
-            res.status(203).send({
-                statusCode: 203,
-                msg: 'No posts found for the user'
-            });
-        }
-    }
-    catch(err){
-        res.status(500).send({msg : err.message});
-    }
-}
-
-export const socialMediaDemo = async (req , res) => {
+export const socialMediaDemo = async (req, res) => {
     try {
         const page = parseInt(req.query.page) || 1;
         const limit = 6;
@@ -246,7 +165,7 @@ export const socialMediaDemo = async (req , res) => {
                 statusCode: 200,
                 msg: 'User posts fetched successfully',
                 posts,
-                countPost : posts.length,
+                countPost: posts.length,
                 totalPost
             });
         } else {
@@ -328,5 +247,264 @@ export const deletePost = async (req, res) => {
             statusCode: 500,
             msg: 'Internal Server Error'
         })
+    }
+}
+
+// export const getMyPosts = async (req, res) => {
+//     try {
+//         const page = parseInt(req.query.page) || 1;
+//         const limit = 6;
+//         const skip = (page - 1) * limit;
+
+//         const data = await Post.aggregate([
+//             // Match documents with the specified userId
+//             { $match: { userId: new mongoose.Types.ObjectId(req.user.userId) } },
+
+//             // Sort by createdAt in descending order
+//             { $sort: { createdAt: -1 } },
+
+//             // Skip the specified number of documents
+//             { $skip: skip },
+
+//             // Limit the number of documents to be retrieved
+//             { $limit: limit },
+
+//             // Perform a left join with the Like collection
+//             {
+//                 $lookup: {
+//                     from: 'likes',
+//                     localField: '_id',
+//                     foreignField: 'postId',
+//                     as: 'likes'
+//                 }
+//             },
+
+//             {
+//                 $addFields: {
+//                     likers: '$likes'
+//                 }
+//             },
+
+//             // Add a new field 'likeCount' that contains the count of likes for each post
+//             {
+//                 $addFields: {
+//                     likeCount: { $size: '$likes' }
+//                 }
+//             },
+
+//             {
+//                 $lookup : {
+//                     from : 'comments',
+//                     localField : '_id',
+//                     foreignField : 'postId',
+//                     as : 'commentCounts'
+//                 }
+//             },
+
+//             {
+//                 $addFields: {
+//                     commenters: '$commentCounts'
+//                 }
+//             },
+
+//             {
+//                 $addFields: {
+//                     commentCount: { $size: '$commenters' }
+//                 }
+//             },
+
+//             {
+//                 $lookup : {
+//                     from : 'reply',
+//                     localField : '_id',
+//                     foreignField : 'postId',
+//                     as : 'repliesCounts'
+//                 }
+//             },
+
+//             {
+//                 $addFields: {
+//                     repliers: '$repliesCounts'
+//                 }
+//             },
+
+//             {
+//                 $addFields: {
+//                     repliesCount: { $size: '$repliers' }
+//                 }
+//             },
+
+//             // // Remove the 'likes' array from the output (optional, if not needed)
+//             {
+//                 $project: {
+//                     likes: 0,
+//                     commentCounts : 0,
+//                     commenters : 0,
+//                     repliesCounts: 0,
+//                     repliers : 0
+//                 }
+//             },
+
+//             // Perform a left join with the User collection to fetch user details
+//             {
+//                 $lookup: {
+//                     from: 'users',
+//                     localField: 'userId',
+//                     foreignField: '_id',
+//                     as: 'userDetails'
+//                 }
+//             },
+
+//             // Unwind the 'userDetails' array as we expect only one user per post
+//             {
+//                 $unwind: {
+//                     path: '$userDetails',
+//                     preserveNullAndEmptyArrays: true // This will preserve posts without matching users
+//                 }
+//             },
+//         ]);
+
+//         if (data && data.length > 0) {
+//             res.status(200).send({
+//                 statusCode: 200,
+//                 msg: 'User posts fetched successfully',
+//                 data
+//             });
+//         }
+//         else {
+//             res.status(203).send({
+//                 statusCode: 203,
+//                 msg: 'No posts found for the user'
+//             });
+//         }
+//     }
+//     catch (err) {
+//         res.status(500).send({ msg: err.message });
+//     }
+// }
+
+export const getMyPosts = async (req, res) => {
+    try {
+        const page = parseInt(req.query.page) || 1;
+        const limit = 6;
+        const skip = (page - 1) * limit;
+
+        const data = await Post.aggregate([
+            // Match documents with the specified userId
+            { $match: { userId: new mongoose.Types.ObjectId(req.user.userId) } },
+
+            // Sort by createdAt in descending order
+            { $sort: { createdAt: -1 } },
+
+            // Skip the specified number of documents
+            { $skip: skip },
+
+            // Limit the number of documents to be retrieved
+            { $limit: limit },
+
+            // Perform a left join with the Like collection
+            {
+                $lookup: {
+                    from: 'likes',
+                    localField: '_id',
+                    foreignField: 'postId',
+                    as: 'likes'
+                }
+            },
+
+            // Calculate the likeCount
+            {
+                $addFields: {
+                    likeCount: { $size: '$likes' }
+                }
+            },
+
+            // Perform a left join with the Comment collection to get comment counts
+            {
+                $lookup: {
+                    from: 'comments',
+                    localField: '_id',
+                    foreignField: 'postId',
+                    as: 'comments'
+                }
+            },
+
+            // Calculate the commentCount
+            {
+                $addFields: {
+                    commentCount: { $size: '$comments' }
+                }
+            },
+
+            // Perform a left join with the Reply collection to get reply counts
+            {
+                $lookup: {
+                    from: 'replies',
+                    localField: 'comments._id',
+                    foreignField: 'commentId',
+                    as: 'replies'
+                }
+            },
+
+            // Calculate the replyCount for each comment
+            {
+                $addFields: {
+                    'comments.replyCount': { $size: '$replies' }
+                }
+            },
+            {
+                $project: {
+                    comments: 0
+                }
+            },
+            {
+                $addFields: {
+                    repliesCount: { $size: '$replies' }
+                }
+            },
+
+            // Remove unnecessary fields from comments
+            {
+                $project: {
+                    'comments.replies': 0,
+                    'replies' : 0,
+                    // 'comments' : 0
+                }
+            },
+
+            // Perform a left join with the User collection to fetch user details
+            {
+                $lookup: {
+                    from: 'users',
+                    localField: 'userId',
+                    foreignField: '_id',
+                    as: 'userDetails'
+                }
+            },
+
+            // Unwind the 'userDetails' array as we expect only one user per post
+            {
+                $unwind: {
+                    path: '$userDetails',
+                    preserveNullAndEmptyArrays: true
+                }
+            },
+        ]);
+
+        if (data && data.length > 0) {
+            res.status(200).send({
+                statusCode: 200,
+                msg: 'User posts fetched successfully',
+                data
+            });
+        } else {
+            res.status(203).send({
+                statusCode: 203,
+                msg: 'No posts found for the user'
+            });
+        }
+    }
+    catch (err) {
+        res.status(500).send({ msg: err.message });
     }
 }

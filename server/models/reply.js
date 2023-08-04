@@ -13,6 +13,10 @@ const ReplySchema = new mongoose.Schema({
         type : mongoose.Types.ObjectId,
         required : true
     },
+    commenterId : {
+        type : mongoose.Types.ObjectId,
+        required : true
+    },
     comment : {
         type : String,
         required : true

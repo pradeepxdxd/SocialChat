@@ -6,6 +6,7 @@ export const useThunk = thunk => {
     const [isError, setIsError] = useState(false);
     const [isSuccess, setIsSuccess] = useState(false);
     const [error, setError] = useState(null);
+    const [data, setData] = useState(null);
 
     const dispatch = useDispatch();
 
@@ -16,11 +17,12 @@ export const useThunk = thunk => {
                 setIsError(true);
                 setError(err);
             })
-            .finally(() => {
+            .finally((data) => {
                 setIsLoading(false);
                 setIsSuccess(true);
+                setData(data)
             })
     }, [dispatch, thunk]);
 
-    return [runThunk, isLoading, isSuccess, isError, error];
+    return [runThunk, data, isLoading, isSuccess, isError, error];
 }

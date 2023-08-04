@@ -20,8 +20,3 @@ export const userInfo = () => {
     return tokenDecode(token);
 }
 
-export const initialLoader = () => {
-    setTimeout(() => {
-        return <Loading />
-    }, 1000);
-}

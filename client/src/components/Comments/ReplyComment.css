@@ -1,0 +1,38 @@
+/* ReplyComment.css */
+
+.reply-comment {
+    border: none;
+    padding: 0;
+    background-color: transparent;
+}
+
+.comment-container {
+    display: flex;
+    align-items: flex-start;
+    padding: 10px;
+    margin-left: 75px;
+    /* Add padding for spacing */
+}
+
+.user-details {
+    display: flex;
+    align-items: center;
+}
+
+.user-image {
+    border-radius: 50%;
+    /* Make the image rounded */
+    margin-right: 10px;
+}
+
+.user-info {
+    display: flex;
+    flex-direction: column;
+}
+
+.comment-text {
+    flex: 1;
+    margin-left: 15px;
+}
+
+/* Additional styling can be added as needed */

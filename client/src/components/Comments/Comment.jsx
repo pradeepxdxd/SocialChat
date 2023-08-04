@@ -4,72 +4,18 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPaperPlane } from '@fortawesome/free-solid-svg-icons';
 import './Comment.css'
 import CommentsData from './CommentsData';
+import InfinityScroller from '../InfinityScrollerForComment/InfinityScroller'
+import { getComments } from '../../redux/thunk/comment'
 
-export default function Comment({ show, setShow }) {
+export default function Comment({ show, setShow, postId }) {
     const [showReply, setShowReply] = useState(false);
 
     const handleClose = () => {
         setShow(false);
     }
 
-    const handleReply = () => {
-        setShowReply(showReply ? false : true);
-    }
-
-    const demoComments = [
-        {
-            id: 1,
-            name: "John Doe",
-            profileImg: "https://via.placeholder.com/50",
-            content: "This is a great post!",
-            replies: [
-                { id: 11, name: "Alice Smith", content: "I agree with you!" },
-                { id: 12, name: "Pradeep Biswas", content: "I agree :)" },
-            ]
-        },
-        {
-            id: 2,
-            name: "Nattu Smith",
-            profileImg: "https://via.placeholder.com/50",
-            content: "I totally agree with your points.",
-            replies: [
-                { id: 13, name: "Undertaker", content: "why are you ready now!" },
-                { id: 14, name: "Goldberg", content: "You are next" },
-            ]
-        },
-        {
-            id: 3,
-            name: "Napa Smith",
-            profileImg: "https://via.placeholder.com/50",
-            content: "I totally agree with your points.",
-            replies: []
-        },
-        {
-            id: 4,
-            name: "Prade Smith",
-            profileImg: "https://via.placeholder.com/50",
-            content: "I totally agree with your points.",
-            replies: []
-        },
-        {
-            id: 5,
-            name: "Chande Smith",
-            profileImg: "https://via.placeholder.com/50",
-            content: "I totally agree with your points.",
-            replies: []
-        },
-        {
-            id: 6,
-            name: "Panga Smith",
-            profileImg: "https://via.placeholder.com/50",
-            content: "I totally agree with your points.",
-            replies: []
-        },
-    ];
-
     return (
         <>
-
             <Modal
                 show={show}
                 onHide={() => setShow(false)}
@@ -83,10 +29,7 @@ export default function Comment({ show, setShow }) {
                 </Modal.Header>
                 <Modal.Body style={{ maxHeight: '500px', overflowY: 'auto' }}>
                     <div>
-                        {/* Display demo comments */}
-                        {demoComments.map(comment => (
-                            <CommentsData comment={comment} />
-                        ))}
+                        <InfinityScroller api={getComments} limit={3} postId={postId} Template={CommentsData}/>
                     </div>
                 </Modal.Body>
                 <Modal.Footer>

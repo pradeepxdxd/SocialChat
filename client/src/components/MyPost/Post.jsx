@@ -11,6 +11,7 @@ import ShareButton from "../Buttons/ShareButton";
 export default function Post({ data, user }) {
     const [doLike, setDoLike] = useState(false);
     const [totalLike, setTotalLike] = useState(data.likeCount);
+    const [totalComment, setTotalComment] = useState(data.commentCount + data.repliesCount);
 
     const navigate = useNavigate();
     const dispatch = useDispatch();
@@ -19,7 +20,7 @@ export default function Post({ data, user }) {
         const user = userInfo();
         let flag = false;
         // eslint-disable-next-line array-callback-return
-        data.likers?.map(likers => {
+        data.likes?.map(likers => {
             if (likers.likerId === user.userId) {
                 flag = true;
                 // eslint-disable-next-line array-callback-return
@@ -87,7 +88,7 @@ export default function Post({ data, user }) {
                                         />
                                     </Col>
                                     <Col>
-                                        <CommentButton commentCount={12} />
+                                        <CommentButton commentCount={totalComment} postId={data._id} />
                                     </Col>
                                     <Col>
                                         <ShareButton shareCount={3}/>
