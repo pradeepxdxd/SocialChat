@@ -1,62 +1,36 @@
-// // import React, { useState } from 'react'
-// // import { Button, ListGroup } from 'react-bootstrap'
-// // import ReplyComment from './ReplyComment'
-// // import { doReplyComment } from '../../redux/thunk/reply'
-// // import InfinityScroller from '../InfinityScrollerForComment/InfinityScroller';
-// // import './CommentData.css'
-
-// // export default function CommentsData({ comment }) {
-// //     const [showReply, setShowReply] = useState(false);
-
-// //     const handleReply = () => {
-// //         setShowReply(showReply ? false : true);
-// //     }
-
-// //     return (
-// //         <div key={comment.id}>
-// //             <ListGroup.Item>
-// //                 <div>
-// //                     <img
-// //                         width={50}
-// //                         height={50}
-// //                         className="mr-3"
-// //                         src={comment.userDetails.profileImg}
-// //                         alt={'err'}
-// //                     />
-// //                     <div>
-// //                         <h5>{comment.userDetails.name}</h5>
-// //                         <p>{comment.comment}</p>
-// //                     </div>
-// //                 </div>
-// //                 <div>
-// //                     <Button variant="link" onClick={handleReply}>
-// //                         {
-// //                             showReply ? <span style={{color:'red'}}>{comment.replyCount} Reply</span> : <span>{comment.replyCount} Reply</span>
-// //                         }
-// //                     </Button>
-// //                 </div>
-
-// //                 {showReply &&
-// //                     <InfinityScroller api={doReplyComment} commentId={comment._id} Template={ReplyComment} />
-// //                 }
-// //             </ListGroup.Item>
-// //         </div>
-// //     )
-// // }
-
-
-
-import React, { useState } from 'react';
+import React, { useState, useMemo } from 'react';
+import { useDispatch } from 'react-redux';
 import { ListGroup } from 'react-bootstrap';
 import ReplyComment from './ReplyComment';
-import { doReplyComment } from '../../redux/thunk/reply';
+import { getReplyComment } from '../../redux/thunk/reply';
 import InfinityScroller from '../InfinityScrollerForComment/InfinityScroller';
-import './CommentData.css';
+import './css/CommentData.css';
+import { checkFlag, getIds } from '../../redux/slices/replyFlagSlices'
 
-export default function CommentsData({ comment }) {
+export default function CommentsData({ comment, incReplyComment }) { 
     const [showReply, setShowReply] = useState(false);
 
+    const dispatch = useDispatch();
+
+    const replyComment = useMemo(() => {
+        if (incReplyComment){
+            return comment.replyCount + 1
+        }
+        else{
+            // eslint-disable-next-line no-unused-expressions
+            comment.replyCount
+        } 
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [incReplyComment])
+
     const handleReply = () => {
+        if (!showReply) {
+            dispatch(checkFlag(true));
+            dispatch(getIds({commentId : comment._id, postId : comment.postId, posterId : comment.posterId}));
+        }
+        else {
+            dispatch(checkFlag(false));
+        }
         setShowReply(!showReply);
     };
 
@@ -79,16 +53,18 @@ export default function CommentsData({ comment }) {
                         <div className="reply-button">
                             <button className="btn btn-link user-button" onClick={handleReply}>
                                 {showReply ? (
-                                    <span style={{ color: 'red' }}>{comment.replyCount} Reply</span>
+                                    // <span style={{ color: 'red' }}>{ incReplyComment ? comment.replyCount + 1 : comment.replyCount } Reply</span>
+                                    <span style={{ color: 'red' }}>{ replyComment ? replyComment : comment.replyCount } Reply</span>
                                 ) : (
-                                    <span>{comment.replyCount} Reply</span>
+                                    // <span>{comment.replyCount} Reply</span>
+                                    <span>{replyComment ? replyComment : comment.replyCount} Reply</span>
                                 )}
                             </button>
                         </div>
                     </div>
                 </div>
                 {showReply && (
-                    <InfinityScroller api={doReplyComment} commentId={comment._id} Template={ReplyComment} />
+                    <InfinityScroller api={getReplyComment} commentId={comment._id} Template={ReplyComment} />
                 )}
             </ListGroup.Item>
         </div>

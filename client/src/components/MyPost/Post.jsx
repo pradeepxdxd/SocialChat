@@ -11,7 +11,8 @@ import ShareButton from "../Buttons/ShareButton";
 export default function Post({ data, user }) {
     const [doLike, setDoLike] = useState(false);
     const [totalLike, setTotalLike] = useState(data.likeCount);
-    const [totalComment, setTotalComment] = useState(data.commentCount + data.repliesCount);
+    // const [totalComment, setTotalComment] = useState(data.commentCount + data.repliesCount);
+    const [totalComment] = useState(data.commentCount + data.repliesCount);
 
     const navigate = useNavigate();
     const dispatch = useDispatch();
@@ -28,6 +29,7 @@ export default function Post({ data, user }) {
         });
 
         flag ? setDoLike(true) : setDoLike(false);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     const handleProfileClick = () => {
@@ -88,7 +90,7 @@ export default function Post({ data, user }) {
                                         />
                                     </Col>
                                     <Col>
-                                        <CommentButton commentCount={totalComment} postId={data._id} />
+                                        <CommentButton commentCount={totalComment} postId={data._id} posterId={data.userId} />
                                     </Col>
                                     <Col>
                                         <ShareButton shareCount={3}/>

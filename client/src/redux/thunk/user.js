@@ -16,3 +16,20 @@ export const getUserInfo = createAsyncThunk('user/getUserInfo', async () => {
         console.log(err.message);
     }
 })
+
+export const searchByName = createAsyncThunk('user/searchByName', async (name) => {
+    try {
+        const resp = await axios.get(`http://localhost:8000/api/user/searchByName?name=${name}`, {
+            headers : {
+                Authorization : `Bearer ${getToken()}`
+            }
+        })
+
+        return resp.data;
+    } 
+    catch (error) {
+        console.log(error.message);
+        throw error;
+    }
+})
+

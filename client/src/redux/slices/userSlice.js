@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import {getUserInfo} from '../thunk/user'
+import {getUserInfo, searchByName} from '../thunk/user'
 
 const initialState = {
     isSuccess : false,
@@ -29,6 +29,25 @@ const userSlice = createSlice({
             state.isError = true;
             state.error = action.error
         })
+
+        // search by name
+        builder.addCase(searchByName.pending, (state) => {
+            state.loading = true
+            state.isSuccess = false;
+            state.isError = false;
+        });
+        builder.addCase(searchByName.fulfilled, (state, action) => {
+            state.loading = false
+            state.isSuccess = true;
+            state.data = action.payload.users
+            state.isError = false;
+        });
+        builder.addCase(searchByName.rejected, (state, action) => {
+            state.loading = false
+            state.isSuccess = false;
+            state.isError = true;
+            state.error = action.error;
+        });
     }
 })
 

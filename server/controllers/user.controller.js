@@ -76,7 +76,8 @@ export const login = async (req, res) => {
 
 export const getUser = async (req, res) => {
     try {
-        const user = await User.findById(req.user.userId);
+        const userId = req.user.userId;
+        const user = await User.findById(userId);
 
         if (user) {
             res.status(200).send({
@@ -117,8 +118,8 @@ export const changePassword = async (req, res) => {
 
         if (hashPass === null) {
             return res.status(401).send({
-                statusCode : 401,
-                msg : 'Invalid Email and Password'
+                statusCode: 401,
+                msg: 'Invalid Email and Password'
             })
         }
 
@@ -147,7 +148,7 @@ export const changePassword = async (req, res) => {
 
 export const forgetPassword = async (req, res) => {
     try {
-        const email =  req.body.email;
+        const email = req.body.email;
         const user = await User.findOne({ email });
         if (!user) {
             return res.status(401).send({
@@ -159,13 +160,13 @@ export const forgetPassword = async (req, res) => {
         const token = createToken({ userId: user._id, email: user.email }, process.env.SECRET_KEY, '1h');
 
         await sendMailHandlebar(
-            res, 
+            res,
             process.env.EMAIL,
             email,
             'Reset Password',
             'email',
             {
-                text : `http://localhost:3000/reset_password/${token}`
+                text: `http://localhost:3000/reset_password/${token}`
             }
         )
     }
@@ -178,7 +179,7 @@ export const forgetPassword = async (req, res) => {
 }
 
 export const resetPassword = async (req, res) => {
-    try{
+    try {
         const userId = req.user.userId;
         const user = await User.findById(userId);
 
@@ -192,39 +193,39 @@ export const resetPassword = async (req, res) => {
         const hashPass = await hashPassword(req.body.newPassword);
         if (!hashPass) {
             res.status(422).send({
-                statusCode : 422,
-                msg : 'please provide password'
+                statusCode: 422,
+                msg: 'please provide password'
             })
         }
-        const updatePass = await User.findByIdAndUpdate(userId, {password : hashPass}, {new : true});
+        const updatePass = await User.findByIdAndUpdate(userId, { password: hashPass }, { new: true });
 
         if (updatePass) {
             res.status(201).send({
-                statusCode : 201,
-                msg : 'Password changed successfully'
+                statusCode: 201,
+                msg: 'Password changed successfully'
             })
         }
         else {
             res.status(400).send({
-                statusCode : 400,
-                msg : 'Something went wrong, please try again'
+                statusCode: 400,
+                msg: 'Something went wrong, please try again'
             })
         }
 
     }
-    catch(err) {
+    catch (err) {
         res.status(500).send({
-            statusCode : 500,
-            msg : 'Internal Server Error'
+            statusCode: 500,
+            msg: 'Internal Server Error'
         })
     }
 }
 
 export const editProfile = async (req, res) => {
-    try{
+    try {
         const userId = req.user.userId;
-        const {name, email, phone, address} = req.body
-        const user = await User.findByIdAndUpdate(userId, {name, email, phone, address}, {new : true});
+        const { name, email, phone, address } = req.body
+        const user = await User.findByIdAndUpdate(userId, { name, email, phone, address }, { new: true });
 
         if (req.file) {
             user.profileImg = req.protocol + '://' + req.get('host') + '/uploads/profileimage/' + req.file.filename;
@@ -233,33 +234,62 @@ export const editProfile = async (req, res) => {
 
         if (user) {
             res.status(204).send({
-                statusCode : 204,
-                msg : 'User profile updated successfully'
+                statusCode: 204,
+                msg: 'User profile updated successfully'
             })
         }
         else {
             res.status(400).send({
-                statusCode : 400,
-                msg : 'Something went wrong, please try again'
+                statusCode: 400,
+                msg: 'Something went wrong, please try again'
             })
         }
     }
-    catch(err) {
+    catch (err) {
         res.status(500).send({
-            statusCode : 500,
-            msg : 'Internal Server Error'
+            statusCode: 500,
+            msg: 'Internal Server Error'
         })
     }
 }
 
 export const mailDemo = async (req, res) => {
-    try{
+    try {
         sendMailHandlebar(res, 'pradeepbiswas41813@gmail.com', 'mail aaya kya');
     }
-    catch(err) {
+    catch (err) {
         res.status(500).send({
-            statusCode : 500,
-            msg : 'Internal Server Error'
+            statusCode: 500,
+            msg: 'Internal Server Error'
         })
     }
 }
+
+export const searchByName = async (req, res) => {
+    try {
+        const { name } = req.query;
+
+        const users = await User.find({
+            name: { $regex: name, $options: "i" }
+        })
+
+        if (users && users.length > 0) {
+            res.status(200).send({
+                msg : 'Users fetched successfully',
+                statusCode : 200,
+                users
+            });
+        }
+        else {
+            res.status(404).send({
+                msg : 'Users not found',
+                statusCode : 404
+            })
+        }
+    }
+    catch (error) {
+        console.log(error.message);
+        res.status(500).send({ statusCode: 500, msg: 'Internal Server Error' });
+    }
+}
+

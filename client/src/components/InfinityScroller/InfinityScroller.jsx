@@ -3,9 +3,11 @@ import InfinityScrollTemplate from './InfinityScrollTemplate';
 import { useDispatch, useSelector } from 'react-redux'
 import { getUserInfo } from '../../redux/thunk/user'
 import Loading from '../Loaders/Loading'
+import NoPostYet from '../Template/NoPostYet'
 
 export default function InfinityScroller({ api, limit, Templete }) {
     const [data, setData] = useState([]);
+    // const [error, setError] = useState(false);
     const [page, setPage] = useState(0);
     const [key] = useState(0);
     const [loading, setLoading] = useState(true);
@@ -17,7 +19,7 @@ export default function InfinityScroller({ api, limit, Templete }) {
 
     useEffect(() => {
         setMainLoading(true);
-
+        // setError(false);
         const fetchApi = async () => {
             dispatch(getUserInfo());
             try {
@@ -34,6 +36,13 @@ export default function InfinityScroller({ api, limit, Templete }) {
             }
         };
         fetchApi();
+        // if (data.length === 0) {
+        //     setError(true);
+        // }
+        // else{
+        //     setError(false);
+        // }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     const fetchData = () => {
@@ -61,6 +70,9 @@ export default function InfinityScroller({ api, limit, Templete }) {
         fetchApi();
     };
 
+    // if (error) {
+    //     return <NoPostYet />
+    // }
     if (mainLoading) {
         return <Loading />
     }
@@ -77,6 +89,7 @@ export default function InfinityScroller({ api, limit, Templete }) {
             <div>
                 {data.length > 0 && <InfinityScrollTemplate length={data.length} fetchData={fetchData} loading={loading} />}
             </div>
+
         </>
     );
 }

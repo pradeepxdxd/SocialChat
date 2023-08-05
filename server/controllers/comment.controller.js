@@ -20,7 +20,7 @@ export const doComment = async (req, res) => {
         if (com) {
             res
                 .status(201)
-                .send({ statusCode: 201, msg: "Post Commented Successfully" });
+                .send({ statusCode: 201, msg: "Post Commented Successfully", data: com });
         } else {
             res.status(400).send({ statusCode: 400, msg: "Something went wrong" });
         }
@@ -50,7 +50,7 @@ export const removeComment = async (req, res) => {
     }
 };
 
-export const replyComment = async (req, res) => {
+export const doReplyComment = async (req, res) => {
     try {
         const { posterId, commentId, postId } = req.query; // by comment id you can find reply of comments
 
@@ -69,7 +69,7 @@ export const replyComment = async (req, res) => {
         if (reply) {
             res
                 .status(201)
-                .send({ statusCode: 201, msg: "Commented on reply successfully" });
+                .send({ statusCode: 201, msg: "Commented on reply successfully", data: reply });
         } else {
             res.status(400).send({ statusCode: 400, msg: "Something went wrong" });
         }
@@ -88,7 +88,7 @@ export const getComment = async (req, res) => {
                     postId: new mongoose.Types.ObjectId(postId),
                 },
             },
-            { $sort: { createdAt: -1 } },
+            // { $sort: { createdAt: -1 } },
             {
                 $lookup: {
                     from: "users",
@@ -202,15 +202,15 @@ export const getReply = async (req, res) => {
                 }
             },
             {
-                $lookup : {
-                    from : 'users',
-                    localField : 'commenterId',
-                    foreignField : '_id',
-                    as : 'userDetails'
+                $lookup: {
+                    from: 'users',
+                    localField: 'commenterId',
+                    foreignField: '_id',
+                    as: 'userDetails'
                 }
             },
             {
-                $unwind : '$userDetails'
+                $unwind: '$userDetails'
             }
         ]);
 

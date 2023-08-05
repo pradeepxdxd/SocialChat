@@ -58,7 +58,7 @@ export default function Profile() {
                                                 <p className="mb-0">mdbootstrap</p>
                                             </li>
                                             <li className="list-group-item d-flex justify-content-between align-items-center p-3">
-                                                <i className="fab fa-twitter fa-lg" style={{ color: "#55acee;" }}></i>
+                                                <i className="fab fa-twitter fa-lg" style={{ color: "#55acee" }}></i>
                                                 <p className="mb-0">@mdbootstrap</p>
                                             </li>
                                             <li className="list-group-item d-flex justify-content-between align-items-center p-3">
@@ -82,23 +82,23 @@ export default function Profile() {
                                             <div className="card-body">
                                                 <p className="mb-4"><span className="text-primary font-italic me-1">assigment</span> Project Status
                                                 </p>
-                                                <p className="mb-1" style={{ fontSize: ".77rem;" }}>Web Design</p>
+                                                <p className="mb-1" style={{ fontSize: ".77rem" }}>Web Design</p>
                                                 <div className="progress rounded" style={{ height: '5px' }}>
                                                     <div className="progress-bar" role="progressbar" style={{ width: '100%' }} aria-valuenow="80"
                                                         aria-valuemin="0" aria-valuemax="100"></div>
                                                 </div>
-                                                <p className="mt-4 mb-1" style={{ fontSize: '.77rem;' }}>Website Markup</p>
+                                                <p className="mt-4 mb-1" style={{ fontSize: '.77rem' }}>Website Markup</p>
                                                 <div className="progress rounded" style={{ height: '5px' }}>
                                                     <div className="progress-bar" role="progressbar" style={{ width: "72%" }} aria-valuenow="72"
                                                         aria-valuemin="0" aria-valuemax="100"></div>
                                                 </div>
-                                                <p className="mt-4 mb-1" style={{ fontSize: ".77rem;" }}>One Page</p>
+                                                <p className="mt-4 mb-1" style={{ fontSize: ".77rem" }}>One Page</p>
                                                 <div className="progress rounded" style={{ height: "5px" }}>
                                                     <div className="progress-bar" role="progressbar" style={{ width: "89%" }} aria-valuenow="89"
                                                         aria-valuemin="0" aria-valuemax="100"></div>
                                                 </div>
                                                 <p className="mt-4 mb-1" style={{ fontSize: '.77rem' }}>Mobile Template</p>
-                                                <div className="progress rounded" style={{ height: '5px;' }}>
+                                                <div className="progress rounded" style={{ height: '5px' }}>
                                                     <div className="progress-bar" role="progressbar" style={{ width: '55%' }} aria-valuenow="55"
                                                         aria-valuemin="0" aria-valuemax="100"></div>
                                                 </div>
@@ -122,22 +122,22 @@ export default function Profile() {
                                                         aria-valuemin="0" aria-valuemax="100"></div>
                                                 </div>
                                                 <p className="mt-4 mb-1" style={{ fontSize: '.77rem' }}>Website Markup</p>
-                                                <div className="progress rounded" style={{ height: "5px;" }}>
+                                                <div className="progress rounded" style={{ height: "5px" }}>
                                                     <div className="progress-bar" role="progressbar" style={{ width: "72%" }} aria-valuenow="72"
                                                         aria-valuemin="0" aria-valuemax="100"></div>
                                                 </div>
                                                 <p className="mt-4 mb-1" style={{ fontSize: ".77rem" }}>One Page</p>
-                                                <div className="progress rounded" style={{ height: "5px;" }}>
+                                                <div className="progress rounded" style={{ height: "5px" }}>
                                                     <div className="progress-bar" role="progressbar" style={{ width: "89%" }} aria-valuenow="89"
                                                         aria-valuemin="0" aria-valuemax="100"></div>
                                                 </div>
                                                 <p className="mt-4 mb-1" style={{ fontSize: '.77rem' }}>Mobile Template</p>
-                                                <div className="progress rounded" style={{ height: "5px;" }}>
+                                                <div className="progress rounded" style={{ height: "5px" }}>
                                                     <div className="progress-bar" role="progressbar" style={{ width: "55%" }} aria-valuenow="55"
                                                         aria-valuemin="0" aria-valuemax="100"></div>
                                                 </div>
                                                 <p className="mt-4 mb-1" style={{ fontSize: ".77rem" }}>Backend API</p>
-                                                <div className="progress rounded mb-2" style={{ height: "5px;" }}>
+                                                <div className="progress rounded mb-2" style={{ height: "5px" }}>
                                                     <div className="progress-bar" role="progressbar" style={{ width: "66%" }} aria-valuenow="66"
                                                         aria-valuemin="0" aria-valuemax="100"></div>
                                                 </div>

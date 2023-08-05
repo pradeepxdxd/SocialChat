@@ -1,5 +1,4 @@
 import jwtDecode from 'jwt-decode';
-import Loading from '../components/Loaders/Loading';
 
 export const tokenDecode = token => {
     return jwtDecode(token);

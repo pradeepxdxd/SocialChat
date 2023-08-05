@@ -5,8 +5,9 @@ import { isLoggedIn } from '../../utils/common'
 import { logout } from '../../redux/slices/authSlices';
 import { useDispatch } from 'react-redux';
 import { useCallback } from 'react';
-import { NavDropdown } from 'react-bootstrap';
+import { Button, Form, FormControl, NavDropdown } from 'react-bootstrap';
 import './Header.css'
+import SearchBar from './SearchBar';
 
 function BasicExample() {
     const auth = isLoggedIn();
@@ -22,11 +23,10 @@ function BasicExample() {
     return (
         <Navbar bg="light" expand="lg" fixed="top">
             {auth ? (
-                <Navbar.Brand className='mx-2 animated-text'  as={Link} to='/dashboard'>Nexus</Navbar.Brand>
+                <Navbar.Brand className='mx-2 animated-text' as={Link} to='/dashboard'>Picstagraph</Navbar.Brand>
             ) : (
-                <Navbar.Brand className='mx-2' as={Link} to='/'>Home</Navbar.Brand>
+                <Navbar.Brand className='mx-2 animated-text' as={Link} to='/'>Picstagraph</Navbar.Brand>
             )}
-{/* style={{color:'#fc03a5'}} */}
             <Navbar.Toggle aria-controls="basic-navbar-nav" />
             <Navbar.Collapse id="basic-navbar-nav">
                 <Nav className="me-auto">
@@ -34,8 +34,8 @@ function BasicExample() {
                         <>
                             <Nav.Link as={Link} to='/addPost'>Add Post</Nav.Link>
                             <Nav.Link as={Link} to='/myPost'>My Post</Nav.Link>
-                            <Nav.Link as={Link} to='/#'>Friends<span style={{color:'green'}}>●</span></Nav.Link>
-                            <Nav.Link as={Link} to='/#'>Chat <span style={{color:'red', fontFamily:'monospace'}}>3</span></Nav.Link>
+                            <Nav.Link as={Link} to='/#'>Friends<span style={{ color: 'green' }}>●</span></Nav.Link>
+                            <Nav.Link as={Link} to='/#'>Chat <span style={{ color: 'red', fontFamily: 'monospace' }}>3</span></Nav.Link>
                         </>
                         :
                         <>
@@ -44,8 +44,10 @@ function BasicExample() {
                         </>
                     }
                 </Nav>
-
-                <Nav className="ml-auto"> {/* Add this Nav component */}
+                {
+                    auth && <SearchBar />
+                }
+                <Nav className="ml-auto mx-4"> {/* Add this Nav component */}
                     {auth ? (
                         <>
                             {/* ... */}

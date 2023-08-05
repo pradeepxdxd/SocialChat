@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react'
 import { useState } from 'react';
-import { Form, Container, Row, Col, Button } from 'react-bootstrap';
+import { Form, Row, Col, Button } from 'react-bootstrap';
 import { Alert } from 'react-bootstrap';
 import { useLoginMutation } from '../../redux/apis/auth'
 import { Link, useNavigate } from 'react-router-dom'
@@ -50,7 +50,7 @@ const Login = () => {
                     <p className="heading">Login</p>
                     {
                         isError && 
-                        <Alert variant='danger' style={{width: '310px'}}>
+                        <Alert variant='danger' style={{width: '320px'}}>
                             {error.data.msg}
                         </Alert>
                     }

@@ -1,5 +1,5 @@
 import express from 'express';
-import {getUser, changePassword, forgetPassword, resetPassword, editProfile, mailDemo} from '../controllers/user.controller.js'
+import {getUser, changePassword, forgetPassword, resetPassword, editProfile, searchByName} from '../controllers/user.controller.js'
 import {auth} from '../middlewares/auth.js'
 import {profileImageUpload} from '../utils/multer.js';
 
@@ -10,5 +10,6 @@ router.patch('/changePassword', auth, changePassword);
 router.post('/forgetPassword', forgetPassword);
 router.post('/resetPassword', auth, resetPassword);
 router.put('/editProfile', auth, profileImageUpload.single('profileImg'), editProfile);
+router.get('/searchByName', auth, searchByName);
 
 export default router;

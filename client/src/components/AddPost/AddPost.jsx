@@ -6,7 +6,7 @@ import { useFormik } from "formik";
 import * as Yup from "yup";
 import Loading from "../Loaders/Loading";
 import 'react-toastify/dist/ReactToastify.css';
-import { toastSuccess, toastFailer } from '../../utils/alerts'
+import { toastSuccess } from '../../utils/alerts'
 
 const AddPost = () => {
     const [addPost, { data: postData, error, isLoading, isSuccess }] = useAddPostMutation();

@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { Button } from 'react-bootstrap'
 import Comment from '../Comments/Comment';
 
-export default function CommentButton({commentCount, postId}) {
+export default function CommentButton({commentCount, postId, posterId}) {
     const [show, setShow] = useState(false);
 
     const handleShow = () => setShow(true);
@@ -16,7 +16,7 @@ export default function CommentButton({commentCount, postId}) {
             </Button>
 
             {
-                show && <Comment show={show} setShow={setShow} postId={postId} />
+                show && <Comment show={show} setShow={setShow} postId={postId} posterId={posterId}/>
             }
         </>
     )

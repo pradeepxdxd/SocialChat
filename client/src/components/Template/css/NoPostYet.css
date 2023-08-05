@@ -1,0 +1,22 @@
+.camera-logo {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100vw;
+    height: 100vh;
+    position: relative;
+    /* Add relative positioning */
+}
+
+.camera-logo svg {
+    font-size: 9rem;
+}
+
+.no-post-text {
+    position: absolute;
+    /* Position the text absolutely */
+    /* bottom: 1px; Adjust this value as needed */
+    bottom: 250px;
+    font-family: cursive;
+}
