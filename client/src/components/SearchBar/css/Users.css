@@ -1,0 +1,52 @@
+/* CommentData.css */
+
+.comment-data {
+    margin-bottom: 15px;
+    /* Add some space between comment items */
+}
+
+.comment-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    padding: 15px;
+    /* Add padding for spacing */
+}
+
+.comment-content {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+.user-details {
+    display: flex;
+    align-items: center;
+}
+
+.user-image {
+    border-radius: 50%;
+    margin-right: 10px;
+}
+
+.user-button {
+    padding: 0;
+}
+
+.reply-button {
+    margin-left: auto;
+    /* Move the reply button to the right */
+    padding: 0;
+}
+
+.comment-text {
+    margin-top: 10px;
+}
+
+.add-icon{
+    cursor: pointer;
+}
+
+.done{
+    color: rgb(0, 194, 113);
+}

@@ -7,7 +7,6 @@ import NoPostYet from '../Template/NoPostYet'
 
 export default function InfinityScroller({ api, limit, Templete }) {
     const [data, setData] = useState([]);
-    // const [error, setError] = useState(false);
     const [page, setPage] = useState(0);
     const [key] = useState(0);
     const [loading, setLoading] = useState(true);
@@ -19,7 +18,6 @@ export default function InfinityScroller({ api, limit, Templete }) {
 
     useEffect(() => {
         setMainLoading(true);
-        // setError(false);
         const fetchApi = async () => {
             dispatch(getUserInfo());
             try {
@@ -36,12 +34,6 @@ export default function InfinityScroller({ api, limit, Templete }) {
             }
         };
         fetchApi();
-        // if (data.length === 0) {
-        //     setError(true);
-        // }
-        // else{
-        //     setError(false);
-        // }
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
@@ -52,7 +44,6 @@ export default function InfinityScroller({ api, limit, Templete }) {
             dispatch(getUserInfo());
             try {
                 const response = await dispatch(api(page + 1));
-                console.log()
                 if (response.payload.statusCode === 203) {
                     setLoading(false);
                 }
@@ -70,10 +61,10 @@ export default function InfinityScroller({ api, limit, Templete }) {
         fetchApi();
     };
 
-    // if (error) {
-    //     return <NoPostYet />
-    // }
-    if (mainLoading) {
+    if (data.length === 0) {
+        return <NoPostYet />
+    }
+    else if (mainLoading) {
         return <Loading />
     }
 

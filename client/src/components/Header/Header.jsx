@@ -5,9 +5,9 @@ import { isLoggedIn } from '../../utils/common'
 import { logout } from '../../redux/slices/authSlices';
 import { useDispatch } from 'react-redux';
 import { useCallback } from 'react';
-import { Button, Form, FormControl, NavDropdown } from 'react-bootstrap';
+import { NavDropdown } from 'react-bootstrap';
 import './Header.css'
-import SearchBar from './SearchBar';
+import SearchBar from '../SearchBar/SearchBar';
 
 function BasicExample() {
     const auth = isLoggedIn();
@@ -47,7 +47,7 @@ function BasicExample() {
                 {
                     auth && <SearchBar />
                 }
-                <Nav className="ml-auto mx-4"> {/* Add this Nav component */}
+                <Nav className="ml-auto profile"> {/* Add this Nav component */}
                     {auth ? (
                         <>
                             {/* ... */}

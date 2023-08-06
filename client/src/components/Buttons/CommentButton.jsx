@@ -14,7 +14,6 @@ export default function CommentButton({commentCount, postId, posterId}) {
                 </svg>
                 Comment <span style={{color:'pink'}}>{commentCount}</span>
             </Button>
-
             {
                 show && <Comment show={show} setShow={setShow} postId={postId} posterId={posterId}/>
             }

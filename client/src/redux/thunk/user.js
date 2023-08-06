@@ -24,7 +24,6 @@ export const searchByName = createAsyncThunk('user/searchByName', async (name) =
                 Authorization : `Bearer ${getToken()}`
             }
         })
-
         return resp.data;
     } 
     catch (error) {
