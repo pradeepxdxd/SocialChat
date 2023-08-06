@@ -4,6 +4,7 @@ import User from '../models/user.js'
 import { sendMail, sendMailHandlebar } from '../services/mail.js'
 import { decodeAndHashPassword, decodePassword, hashPassword } from '../services/decodePassword.js';
 import { createToken } from '../services/token.js';
+import Friend from '../models/Friends.js'
 
 export const regis = async (req, res) => {
     try {
@@ -269,27 +270,152 @@ export const searchByName = async (req, res) => {
     try {
         const { name } = req.query;
 
-        const users = await User.find({
-            name: { $regex: name, $options: "i" }
-        })
+        const users = await User.aggregate([
+            {
+                $match: {
+                    name: { $regex: name, $options: "i" }
+                }
+            },
+            {
+                $lookup: {
+                    from: 'friends',
+                    let: { userId: '$_id' },
+                    pipeline: [
+                        {
+                            $match: {
+                                $expr: { $eq: ['$myId', '$$userId'] }
+                            }
+                        }
+                    ],
+                    as: 'requestStatus'
+                }
+            }
+        ]);
 
         if (users && users.length > 0) {
             res.status(200).send({
-                msg : 'Users fetched successfully',
-                statusCode : 200,
+                msg: 'Users fetched successfully',
+                statusCode: 200,
                 users
             });
         }
         else {
             res.status(404).send({
-                msg : 'Users not found',
-                statusCode : 404
+                msg: 'Users not found',
+                statusCode: 404
             })
         }
     }
     catch (error) {
         console.log(error.message);
         res.status(500).send({ statusCode: 500, msg: 'Internal Server Error' });
+    }
+}
+
+export const sendFriendRequest = async (req, res) => {
+    try {
+        const myId = req.user.userId;
+        const friendId = req.params.friendId;
+
+        const pendingRequest = await Friend.findOne({ friendId, myId, statusOfRequest: 'PENDING' });
+        if (pendingRequest) {
+            await Friend.deleteOne({ friendId, myId, statusOfRequest: 'PENDING' });
+            await Friend.deleteOne({ friendId: myId, myId: friendId, statusOfRequest: 'REQUEST' });
+            return res.status(203).send({ statusCode: 203, msg: 'you withdrawl your request' });
+        }
+
+        const friendRequest = await Friend.create({ friendId, myId, statusOfRequest: 'PENDING' });
+        if (friendRequest) {
+            const requestSent = await Friend.create({ friendId: myId, myId: friendId, statusOfRequest: 'REQUEST' });
+            if (requestSent) {
+                res.status(201).send({ statusCode: 201, msg: 'Request sent successfully' });
+            }
+            else {
+                res.status(404).send({ statusCode: 404, msg: 'User is not found' });
+            }
+        }
+    }
+    catch (error) {
+        console.log(error.message);
+        res.status(500).send({ statusCode: 500, msg: 'Internal Server Error' })
+    }
+}
+
+export const acceptFriendRequest = async (req, res) => {
+    try {
+        const friendId = req.params.friendId;
+        const myId = req.user.userId;
+
+        const alreadAccepted = await Friend.findOne({ friendId, myId, statusOfRequest: 'ACCEPTED' }).lean();
+
+        if (alreadAccepted) {
+            return res.status(200).send({ statusCode: 200, msg: 'You both already follow each other' });
+        }
+
+        const requestAccepted = await Friend.updateMany({$or : [{friendId : myId, myId : friendId},{friendId : friendId, myId : myId}]}, {$set : {statusOfRequest : 'ACCEPTED'}}).lean();
+
+        if (requestAccepted) {
+            res.status(201).send({statusCode : 201, msg : 'Request accepted successfully', requestAccepted});
+        }
+        else{
+            res.status(400).send({statusCode : 400, msg : 'Something went wrong'});
+        }
+    }
+    catch (error) {
+        console.log(error.message);
+        res.status(500).send({ statusCode: 500, msg: 'Internal Server Error' });
+    }
+}
+
+export const unFollowUser = async (req, res) => {
+    try {
+        const friendId = req.params.friendId;
+        const myId = req.user.userId;
+
+        const users = await Friend.find({$or : [{friendId : myId, myId : friendId},{friendId : friendId, myId : myId}]}).lean();
+        if (users && users.length === 2){
+            await Friend.deleteOne({ friendId, myId, statusOfRequest: 'ACCEPTED' });
+            await Friend.deleteOne({ friendId: myId, myId: friendId, statusOfRequest: 'ACCEPTED' });
+            return res.status(203).send({ statusCode: 203, msg: 'Unfollow user successfully' });
+        }
+        else {
+            return res.status(404).send({ statusCode: 404, msg: 'User not found' });
+        }
+    }
+    catch (error) {
+        console.log(error.message);
+        res.status(500).send({ statusCode: 500, msg: 'Internal Server Error' })
+    }
+}
+
+export const rejectRequest = async (req, res) => {
+    try {
+        const friendId = req.params.friendId;
+        const myId = req.user.userId;
+
+        const users = await Friend.find({$or : [{friendId : myId, myId : friendId, statusOfRequest : "PENDING"},{friendId : friendId, myId : myId, statusOfRequest : "REQUEST"}]}).lean();
+
+        if(users && users.length === 2) {
+            const result = await Friend.deleteMany({
+                $or: [
+                    { friendId: myId, myId: friendId, statusOfRequest: "PENDING" },
+                    { friendId: friendId, myId: myId, statusOfRequest: "REQUEST" }
+                ]
+            });
+            if (result) {
+                res.status(200).send({statusCode : 200, msg : 'Request rejected successfully'});
+            }
+            else {
+                res.status(404).send({statusCode : 404, msg : 'User not found'});
+            }
+        }
+        else{
+            res.status(400).send({statusCode : 400, msg : 'Something went wrong'});
+        }
+    } 
+    catch (error) {
+        console.log(error.message);
+        res.status(500).send({statusCode : 500, msg : 'Internal Server Error'});
     }
 }
 
