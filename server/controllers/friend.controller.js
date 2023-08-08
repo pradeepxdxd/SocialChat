@@ -145,3 +145,21 @@ export const getFriendRequests = async (req, res) => {
     }
 }
 
+export const getFriends = async (req, res) => {
+    try {
+        const myId = req.user.userId;
+
+        const requests = await Friend.find({myId, statusOfRequest : 'ACCEPTED'});
+
+        if (requests && requests.length > 0) {
+            res.status(200).send({statusCode : 200, msg : 'Friend request fetched', requests});
+        }
+        else{
+            res.status(203).send({statusCode : 203, msg : 'No request found'});
+        }
+    } 
+    catch (error) {
+        console.log(error.message);    
+    }
+}
+

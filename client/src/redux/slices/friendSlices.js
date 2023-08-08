@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { doFollow } from "../thunk/friend";
+import { doFollow, unFollow } from "../thunk/friend";
 
 let initialState = {
     loading : false,
@@ -29,6 +29,27 @@ const friendSlice = createSlice({
             state.msg = action.payload.msg;
         })
         builder.addCase(doFollow.rejected, (state, action) => {
+            state.error = action.error;
+            state.success = false;
+            state.loading = false;
+            state.msg = action.error.message;
+        })
+
+        // unfollow 
+        builder.addCase(unFollow.pending, state => {
+            state.error = null;
+            state.success = false;
+            state.loading = true
+        })
+        builder.addCase(unFollow.fulfilled, (state, action) => {
+            state.error = null;
+            state.success = true;
+            state.loading = false;
+            state.data = action.payload;
+            state.statusCode = action.payload.statusCode;
+            state.msg = action.payload.msg;
+        })
+        builder.addCase(unFollow.rejected, (state, action) => {
             state.error = action.error;
             state.success = false;
             state.loading = false;

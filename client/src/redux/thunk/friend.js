@@ -2,7 +2,7 @@ import { createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 import { getToken } from '../../services/utils/common';
 
-export const doFollow = createAsyncThunk('user/doFollow', async (friendId) => {
+export const doFollow = createAsyncThunk('friend/doFollow', async (friendId) => {
     try {
         const resp = await axios.get(`http://localhost:8000/api/friend/follow/${friendId}`, {
             headers : {
@@ -18,7 +18,7 @@ export const doFollow = createAsyncThunk('user/doFollow', async (friendId) => {
     }
 })
 
-export const acceptRequest = createAsyncThunk('user/acceptRequest', async (friendId) => {
+export const acceptRequest = createAsyncThunk('friend/acceptRequest', async (friendId) => {
     try {
         const resp = await axios.get(`http://localhost:8000/api/friend/acceptRequest/${friendId}`, {
             headers : {
@@ -34,9 +34,9 @@ export const acceptRequest = createAsyncThunk('user/acceptRequest', async (frien
     }
 })
 
-export const unfollow = createAsyncThunk('user/unfollow', async (friendId) => {
+export const unFollow = createAsyncThunk('friend/unfollow', async (friendId) => {
     try {
-        const resp = await axios.get(`http://localhost:8000/api/friend/unfollow/${friendId}`, {
+        const resp = await axios.delete(`http://localhost:8000/api/friend/unfollow/${friendId}`, {
             headers : {
                 Authorization : `Bearer ${getToken()}`
             }
@@ -50,7 +50,7 @@ export const unfollow = createAsyncThunk('user/unfollow', async (friendId) => {
     }
 })
 
-export const rejectRequest = createAsyncThunk('user/rejectRequest', async (friendId) => {
+export const rejectRequest = createAsyncThunk('friend/rejectRequest', async (friendId) => {
     try {
         const resp = await axios.get(`http://localhost:8000/api/friend/rejectRequest/${friendId}`, {
             headers : {

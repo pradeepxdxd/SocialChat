@@ -5,7 +5,8 @@ import {
     sendFriendRequest,
     unFollowUser,
     getPendingRequest,
-    getFriendRequests
+    getFriendRequests,
+    getFriends
 } from '../controllers/friend.controller.js'
 import { auth } from '../middlewares/auth.js'
 
@@ -17,5 +18,6 @@ router.delete('/unfollow/:friendId', auth, unFollowUser);
 router.delete('/rejectRequest/:friendId', auth, rejectRequest);
 router.get('/pending', auth, getPendingRequest);
 router.get('/requested', auth, getFriendRequests);
+router.get('/accepted', auth, getFriends);
 
 export default router;

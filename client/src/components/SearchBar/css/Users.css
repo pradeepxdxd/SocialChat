@@ -131,6 +131,20 @@
     transform: translateX(0);
     transition: .3s transform linear, .3s height linear .5s;
   }
+
+  .unfollow:hover:before{
+    border-color: #0014c3;
+    height: 100%;
+    transform: translateX(0);
+    transition: .3s transform linear, .3s height linear .3s;
+  }
+
+  .unfollow:hover:after{
+    border-color: #0014c3;
+    height: 100%;
+    transform: translateX(0);
+    transition: .3s transform linear, .3s height linear .5s;
+  }
   
   button {
     color: black;
