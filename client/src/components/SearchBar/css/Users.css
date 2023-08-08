@@ -145,6 +145,20 @@
     transform: translateX(0);
     transition: .3s transform linear, .3s height linear .5s;
   }
+
+  .follow:hover:before{
+    border-color: #e000c6;
+    height: 100%;
+    transform: translateX(0);
+    transition: .3s transform linear, .3s height linear .3s;
+  }
+
+  .follow:hover:after{
+    border-color: #e000c6;
+    height: 100%;
+    transform: translateX(0);
+    transition: .3s transform linear, .3s height linear .5s;
+  }
   
   button {
     color: black;

@@ -157,9 +157,19 @@ export default function Users({ user, loading }) {
                                     </>
                                 }
                                 {
+                                    !request && 
+                                    <>
+                                        <button onClick={handleSendRequest}>
+                                            <span className="box follow">
+                                                follow
+                                            </span>
+                                        </button>
+                                    </>
+                                }
+                                {/* {
                                     // eslint-disable-next-line no-mixed-operators
                                     !request && <FontAwesomeIcon onClick={handleSendRequest} icon={faUserPlus} size='lg' className='sent-request' />
-                                }
+                                } */}
                             </div>
                         </div>
                     </div>
