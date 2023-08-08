@@ -1,7 +1,7 @@
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import { Link, useNavigate } from 'react-router-dom';
-import { isLoggedIn } from '../../utils/common'
+import { isLoggedIn } from '../../services/utils/common'
 import { logout } from '../../redux/slices/authSlices';
 import { useDispatch } from 'react-redux';
 import { useCallback } from 'react';

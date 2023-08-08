@@ -1,5 +1,5 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
-import { getToken } from '../../utils/common'
+import { getToken } from '../../services/utils/common'
 
 const postApi = createApi({
     reducerPath: 'postApi',

@@ -4,13 +4,15 @@ import SignUp from "./components/SignUp/SignUp";
 import Login from './components/Login/Login';
 import Header from './components/Header/Header';
 import Dashboard from './components/Dashboard/Dashboard';
-import { isLoggedIn } from './utils/common'
+import { isLoggedIn } from './services/utils/common'
 import Profile from './components/Profile/Profile';
 import ChangePassword from './components/ChangePassword/ChangePassword';
 import ForgetPassword from './components/ForgetPassword/ForgetPassword';
 import ResetPassword from './components/ResetPassword/ResetPassword';
 import AddPost from './components/AddPost/AddPost';
 import MyPost from './components/MyPost/MyPost';
+import { ToastContainer } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css';
 
 const ProtectedRoute = ({ children }) => {
     // eslint-disable-next-line no-unused-expressions
@@ -22,6 +24,7 @@ function App() {
         <>
             <Router>
                 <Header />
+                <ToastContainer />
                 <Routes>
                     <Route path="/" element={<Login />} />
                     <Route path="/signup" element={<SignUp />} />

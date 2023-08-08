@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { getToken, tokenDecode } from "../../utils/common";
+import { getToken, tokenDecode } from '../../services/utils/common';
 import { useDispatch } from "react-redux";
 import { setUser } from "../../redux/slices/authSlices";
 import { Button, Card, Col, Container, Row } from "react-bootstrap";

@@ -4,7 +4,7 @@ import { Form, Row, Col, Button } from 'react-bootstrap';
 import { Alert } from 'react-bootstrap';
 import { useLoginMutation } from '../../redux/apis/auth'
 import { Link, useNavigate } from 'react-router-dom'
-import { isLoggedIn, tokenDecode } from '../../utils/common'
+import { isLoggedIn, tokenDecode } from '../../services/utils/common'
 import { useDispatch } from 'react-redux';
 import { setUser } from '../../redux/slices/authSlices'
 import Loading from '../Loaders/Loading'

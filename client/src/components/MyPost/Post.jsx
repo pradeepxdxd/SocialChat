@@ -5,7 +5,7 @@ import { Row, Col } from "react-bootstrap";
 import CommentButton from "../Buttons/CommentButton";
 import { useDispatch } from "react-redux";
 import { doLikeAndUnLike } from "../../redux/thunk/like";
-import { userInfo } from '../../utils/common'
+import { userInfo } from '../../services/utils/common'
 import ShareButton from "../Buttons/ShareButton";
 
 export default function Post({ data, user }) {

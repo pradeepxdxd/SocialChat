@@ -1,6 +1,6 @@
 import {createAsyncThunk} from '@reduxjs/toolkit'
 import axios from 'axios'
-import { getToken } from '../../utils/common'
+import { getToken } from '../../services/utils/common'
 
 export const getReplyComment = createAsyncThunk('reply/getReplyComment', async ({page, commentId}) => {
     try {

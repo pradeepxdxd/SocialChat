@@ -14,15 +14,15 @@ export default function EditForm({ data, setUserDetailsShow }) {
     });
 
     const formik = useFormik({
-        initialValues : {
-            name : data.user.name,
-            email : data.user.email,
-            phone : data.user.phone,
-            address : data.user.address,
-            profileImg : data.user.profileImg
+        initialValues: {
+            name: data.user.name,
+            email: data.user.email,
+            phone: data.user.phone,
+            address: data.user.address,
+            profileImg: data.user.profileImg
         },
         validationSchema,
-        onSubmit : data => {
+        onSubmit: data => {
             handleSubmit(data);
             setUserDetailsShow(true);
         }
@@ -42,7 +42,7 @@ export default function EditForm({ data, setUserDetailsShow }) {
     if (isLoading) return <Loading />
 
     const handleProfileImage = e => {
-        if (e.target.files[0]){
+        if (e.target.files[0]) {
             setImage(e.target.files[0]);
         }
         else {

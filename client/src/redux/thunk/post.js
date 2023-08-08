@@ -1,6 +1,6 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
-import { getToken } from "../../utils/common";
+import { getToken } from '../../services/utils/common'
 
 // posts api
 export const getMyPosts = createAsyncThunk('post/getMyPosts', async (page) => {

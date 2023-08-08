@@ -3,6 +3,7 @@ import { Form, Modal } from 'react-bootstrap'
 import { useDispatch, useSelector } from 'react-redux';
 import { searchByName } from '../../redux/thunk/user'
 import Users from './Users';
+import PostLoading from '../Loaders/PostLoading';
 
 export default function SearchUserModel({ show, setShow }) {
     const [flagUserFound, setFlagUserFound] = useState(false);
@@ -20,7 +21,7 @@ export default function SearchUserModel({ show, setShow }) {
         if (userName.length > 0) {
             dispatch(searchByName(userName))
         }
-        else if(userName === '') {
+        else if (userName === '') {
             setFlagUserFound(true);
         }
     }
@@ -60,6 +61,9 @@ export default function SearchUserModel({ show, setShow }) {
                                     )
                                     :
                                     <h4>User Not Found</h4>
+                            }
+                            {
+                                loading && <PostLoading />
                             }
                         </div>
                     </div>

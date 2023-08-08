@@ -1,12 +1,10 @@
 import React, { useEffect } from "react";
 import { Form, Button, Container, Row, Col, Alert } from "react-bootstrap";
-import { ToastContainer } from 'react-toastify'
 import { useAddPostMutation } from "../../redux/apis/post";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import Loading from "../Loaders/Loading";
-import 'react-toastify/dist/ReactToastify.css';
-import { toastSuccess } from '../../utils/alerts'
+import { toastSuccess } from '../../services/utils/alerts'
 
 const AddPost = () => {
     const [addPost, { data: postData, error, isLoading, isSuccess }] = useAddPostMutation();
@@ -29,12 +27,6 @@ const AddPost = () => {
         onSubmit: (data) => {
             toastSuccess('Post Successfully Added')
             handleSubmit(data);
-            // if (!error.data.msg) {
-            //     toastSuccess(postData.msg)
-            // }
-            // else {
-            //     toastFailer(error.data.msg)
-            // }
         },
     });
 
@@ -51,7 +43,6 @@ const AddPost = () => {
 
     return (
         <Container>
-            <ToastContainer />
             <Row className="justify-content-center mt-5">
                 <Col xs={12} sm={8} md={6}>
                     <h3

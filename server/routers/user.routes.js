@@ -5,11 +5,7 @@ import {
     forgetPassword,
     resetPassword, 
     editProfile, 
-    searchByName, 
-    sendFriendRequest,
-    acceptFriendRequest,
-    unFollowUser,
-    rejectRequest
+    searchByName,
 } from '../controllers/user.controller.js'
 
 import {auth} from '../middlewares/auth.js'
@@ -24,10 +20,5 @@ router.get('/searchByName', auth, searchByName);
 router.patch('/changePassword', auth, changePassword);
 router.post('/forgetPassword', forgetPassword);
 router.post('/resetPassword', auth, resetPassword);
-
-router.get('/follow/:friendId', auth, sendFriendRequest);
-router.get('/acceptRequest/:friendId', auth, acceptFriendRequest);
-router.delete('/unfollow/:friendId', auth, unFollowUser);
-router.delete('/rejectRequest/:friendId', auth, rejectRequest);
 
 export default router;
