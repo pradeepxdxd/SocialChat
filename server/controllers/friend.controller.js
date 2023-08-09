@@ -1,3 +1,4 @@
+import mongoose from 'mongoose';
 import Friend from '../models/Friends.js'
 
 export const sendFriendRequest = async (req, res) => {
@@ -130,13 +131,33 @@ export const getFriendRequests = async (req, res) => {
     try {
         const myId = req.user.userId;
 
-        const requests = await Friend.find({ myId, statusOfRequest: 'REQUEST' });
+        // const requests = await Friend.find({ myId, statusOfRequest: 'REQUEST' });
+        const requests = await Friend.aggregate([
+            {
+                $match: {
+                    myId: new mongoose.Types.ObjectId(myId),
+                    statusOfRequest: 'REQUEST'
+                }
+            },
+            {
+
+                $lookup: {
+                    from: 'users',
+                    localField: 'friendId',
+                    foreignField: '_id',
+                    as: 'friend'
+                }
+            },
+            {
+                $unwind: '$friend' // Unwind the friend array to get a single object
+            }
+        ]);
 
         if (requests && requests.length > 0) {
-            res.status(200).send({statusCode : 200, msg : 'Friend request fetched', requests});
+            res.status(200).send({ statusCode: 200, msg: 'Friend request fetched', requests });
         }
-        else{
-            res.status(203).send({statusCode : 203, msg : 'No request found'});
+        else {
+            res.status(203).send({ statusCode: 203, msg: 'No request found' });
         }
     }
     catch (error) {
@@ -149,17 +170,54 @@ export const getFriends = async (req, res) => {
     try {
         const myId = req.user.userId;
 
-        const requests = await Friend.find({myId, statusOfRequest : 'ACCEPTED'});
+        // const requests = await Friend.find({myId, statusOfRequest : 'ACCEPTED'});
+        const requests = await Friend.aggregate([
+            {
+                $match: {
+                    myId: new mongoose.Types.ObjectId(myId),
+                    statusOfRequest: 'ACCEPTED'
+                }
+            },
+            {
+
+                $lookup: {
+                    from: 'users',
+                    localField: 'friendId',
+                    foreignField: '_id',
+                    as: 'friend'
+                }
+            },
+            {
+                $unwind: '$friend' // Unwind the friend array to get a single object
+            }
+        ]);
 
         if (requests && requests.length > 0) {
-            res.status(200).send({statusCode : 200, msg : 'Friend request fetched', requests});
+            res.status(200).send({ statusCode: 200, msg: 'Friend request fetched', requests });
         }
-        else{
-            res.status(203).send({statusCode : 203, msg : 'No request found'});
+        else {
+            res.status(203).send({ statusCode: 203, msg: 'No request found' });
         }
-    } 
+    }
     catch (error) {
-        console.log(error.message);    
+        console.log(error.message);
+    }
+}
+
+export const countOfRequests = async (req, res) => {
+    try {
+        const counts = await Friend.find({ myId: req.user.userId, statusOfRequest: 'REQUEST' }).count();
+
+        if (counts) {
+            res.status(200).send({ statusCode: 200, msg: 'Your friends count fetched', counts });
+        }
+        else {
+            res.status(203).send({ statusCode: 203, msg: "You don't have any friend request" });
+        }
+    }
+    catch (error) {
+        console.log(error.message);
+        res.status(500).send({ statusCode: 500, msg: 'Internal Server Error' });
     }
 }
 

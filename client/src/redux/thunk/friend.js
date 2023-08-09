@@ -34,14 +34,30 @@ export const acceptRequest = createAsyncThunk('friend/acceptRequest', async (fri
     }
 })
 
-export const unFollow = createAsyncThunk('friend/unfollow', async (friendId) => {
+export const unFollow = createAsyncThunk('friend/unfollow', async (user) => {
     try {
-        const resp = await axios.delete(`http://localhost:8000/api/friend/unfollow/${friendId}`, {
+        await axios.delete(`http://localhost:8000/api/friend/unfollow/${user._id}`, {
             headers : {
                 Authorization : `Bearer ${getToken()}`
             }
         });
 
+        return user;
+    } 
+    catch (error) {
+        console.log(error.message);
+        throw error;    
+    }
+})
+
+export const getAllFriends = createAsyncThunk('friend/accepted', async () => {
+    try {
+        const resp = await axios.get(`http://localhost:8000/api/friend/accepted`, {
+            headers: {
+                Authorization: `Bearer ${getToken()}`
+            }
+        });
+    
         return resp.data;
     } 
     catch (error) {
@@ -50,14 +66,14 @@ export const unFollow = createAsyncThunk('friend/unfollow', async (friendId) => 
     }
 })
 
-export const rejectRequest = createAsyncThunk('friend/rejectRequest', async (friendId) => {
+export const countOfRequests = createAsyncThunk('friend/counts', async () => {
     try {
-        const resp = await axios.get(`http://localhost:8000/api/friend/rejectRequest/${friendId}`, {
-            headers : {
-                Authorization : `Bearer ${getToken()}`
+        const resp = await axios.get(`http://localhost:8000/api/friend/counts`, {
+            headers: {
+                Authorization: `Bearer ${getToken()}`
             }
         });
-
+    
         return resp.data;
     } 
     catch (error) {

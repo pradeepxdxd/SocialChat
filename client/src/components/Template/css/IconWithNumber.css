@@ -1,0 +1,34 @@
+.icon-with-number {
+    display: inline-flex;
+    align-items: center;
+    position: relative;
+}
+
+.icon {
+    font-size: 24px;
+    /* Adjust the size as needed */
+    margin-right: 8px;
+    /* Adjust spacing between icon and number */
+}
+
+.number {
+    position: absolute;
+    top: -6px;
+    /* Adjust vertical positioning */
+    right: -6px;
+    /* Adjust horizontal positioning */
+    background-color: red;
+    /* Set background color */
+    color: white;
+    /* Set text color */
+    border-radius: 50%;
+    width: 20px;
+    /* Set width of the circle */
+    height: 20px;
+    /* Set height of the circle */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 12px;
+    /* Adjust font size of the number */
+}

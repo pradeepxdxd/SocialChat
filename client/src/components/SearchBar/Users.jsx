@@ -1,13 +1,10 @@
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import React, { useEffect, useState } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
+import { useDispatch } from 'react-redux'
 import { ListGroup } from 'react-bootstrap'
 import './css/Users.css'
 import PostLoading from '../Loaders/PostLoading'
-import { faUserPlus } from '@fortawesome/free-solid-svg-icons'
 import { userInfo } from '../../services/utils/common'
 import { doFollow, acceptRequest, unFollow } from '../../redux/thunk/friend'
-// import { toastSuccess } from '../../services/utils/alerts'
 import { getPendingRequests, getFriendRequests, getFriends } from '../../services/apis/services'
 
 export default function Users({ user, loading }) {
@@ -166,10 +163,6 @@ export default function Users({ user, loading }) {
                                         </button>
                                     </>
                                 }
-                                {/* {
-                                    // eslint-disable-next-line no-mixed-operators
-                                    !request && <FontAwesomeIcon onClick={handleSendRequest} icon={faUserPlus} size='lg' className='sent-request' />
-                                } */}
                             </div>
                         </div>
                     </div>

@@ -9,6 +9,7 @@ import Profile from './components/Profile/Profile';
 import ChangePassword from './components/ChangePassword/ChangePassword';
 import ForgetPassword from './components/ForgetPassword/ForgetPassword';
 import ResetPassword from './components/ResetPassword/ResetPassword';
+import Friends from './components/Friends/Friends';
 import AddPost from './components/AddPost/AddPost';
 import MyPost from './components/MyPost/MyPost';
 import { ToastContainer } from 'react-toastify'
@@ -58,6 +59,9 @@ function App() {
                     } />
                     <Route path="/reset_password/:token" element={
                         <ResetPassword />
+                    } />
+                    <Route path="/friends" element={
+                        <Friends />
                     } />
                 </Routes>
             </Router>
