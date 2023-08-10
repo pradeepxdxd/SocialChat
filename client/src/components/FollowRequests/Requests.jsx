@@ -4,9 +4,11 @@ import './css/Requests.css';
 import { accpetRequest, rejectRequest } from '../../redux/thunk/followRequest'
 import { useDispatch } from 'react-redux'
 import { requestAccepted, refreshCount } from '../../redux/slices/friendSlices'
+import { useNavigate } from 'react-router-dom';
 
 export default function Requests({ user }) {
     const dispatch = useDispatch();
+    const navigate = useNavigate();
 
     const handleAccept = () => {
         dispatch(accpetRequest(user));
@@ -19,9 +21,13 @@ export default function Requests({ user }) {
         dispatch(refreshCount());
     }
 
+    const handleClickOnProfile = () => {
+        navigate(`/follower/${user.friend._id}`);
+    }
+
     return (
         <>
-            <div key={user.id} className="comment-data">
+            <div key={user._id} className="comment-data">
                 <ListGroup.Item className="comment-item">
                     <div className="comment-content">
                         <div className="user-details">
@@ -31,6 +37,7 @@ export default function Requests({ user }) {
                                 className="rounded-circle user-image mr-3 mb-3"
                                 src={user.friend.profileImg}
                                 alt="User Profile"
+                                onClick={handleClickOnProfile}
                             />
                             <div className="user-info">
                                 <h5>{user.friend.name}</h5>

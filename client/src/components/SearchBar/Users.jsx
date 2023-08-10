@@ -6,12 +6,14 @@ import PostLoading from '../Loaders/PostLoading'
 import { userInfo } from '../../services/utils/common'
 import { doFollow, acceptRequest, unFollow } from '../../redux/thunk/friend'
 import { getPendingRequests, getFriendRequests, getFriends } from '../../services/apis/services'
+import { useNavigate } from 'react-router-dom'
 
-export default function Users({ user, loading }) {
+export default function Users({ user, loading, handleHide }) {
     const [request, setRequest] = useState(false);
     const [requestStatus, setRequestStatus] = useState({ IS_LOGGED_USER: false, ACCEPTED: false, PENDING: false, REQUEST: false });
 
     const dispatch = useDispatch();
+    const navigate = useNavigate();
 
     useEffect(() => {
         const userId = userInfo().userId;
@@ -98,13 +100,18 @@ export default function Users({ user, loading }) {
         setRequest(false);
     }
 
+    const handleClickOnProfile = () => {
+        handleHide(false);
+        navigate(`/follower/${user._id}`);
+    }
+
     if (loading) {
         <PostLoading />
     }
 
     return (
         <>
-            <div key={user.id} className="comment-data">
+            <div key={user._id} className="comment-data">
                 <ListGroup.Item className="comment-item">
                     <div className="comment-content">
                         <div className="user-details">
@@ -114,6 +121,7 @@ export default function Users({ user, loading }) {
                                 className="rounded-circle user-image mr-3 mb-3"
                                 src={user.profileImg}
                                 alt="User Profile"
+                                onClick={handleClickOnProfile}
                             />
                             <div className="user-info">
                                 <h5>{user.name}</h5>

@@ -3,22 +3,29 @@ import { ListGroup } from 'react-bootstrap'
 import { useDispatch } from 'react-redux'
 import { unFollow } from '../../redux/thunk/friend'
 import './css/Followers.css'
+import { useNavigate } from 'react-router-dom'
 
 export default function Followers({ user }) {
 
     const dispatch = useDispatch();
+    const navigate = useNavigate();
 
     const handleUnfollow = () => {
         dispatch(unFollow(user.friend));
     }
 
+    const handleShowProfile = () => {
+        navigate(`/follower/${user.friendId}`);
+    }
+
     return (
         <>
-            <div key={user.id} className="comment-data mt-4">
+            <div key={user._id} className="comment-data mt-4">
                 <ListGroup.Item className="comment-item">
                     <div className="comment-content">
                         <div className="user-details">
                             <img
+                                onClick={handleShowProfile}
                                 width={50}
                                 height={50}
                                 className="rounded-circle user-image mr-3 mb-3"

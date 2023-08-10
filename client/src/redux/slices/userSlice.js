@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import {getUserInfo, searchByName, doFollow} from '../thunk/user'
+import {getUserInfo, searchByName, getUserById} from '../thunk/user'
 
 const initialState = {
     isSuccess : false,
@@ -44,6 +44,25 @@ const userSlice = createSlice({
         });
         builder.addCase(searchByName.rejected, (state, action) => {
             state.data.length = 0;
+            state.loading = false
+            state.isSuccess = false;
+            state.isError = true;
+            state.error = action.error;
+        });
+
+        // get user by id
+        builder.addCase(getUserById.pending, (state) => {
+            state.loading = true
+            state.isSuccess = false;
+            state.isError = false;
+        });
+        builder.addCase(getUserById.fulfilled, (state, action) => {
+            state.loading = false
+            state.isSuccess = true;
+            state.data = action.payload.user
+            state.isError = false;
+        });
+        builder.addCase(getUserById.rejected, (state, action) => {
             state.loading = false
             state.isSuccess = false;
             state.isError = true;

@@ -7,7 +7,8 @@ import {
     getPendingRequest,
     getFriendRequests,
     getFriends,
-    countOfRequests
+    countOfRequests,
+    checkFriendOrNot
 } from '../controllers/friend.controller.js'
 import { auth } from '../middlewares/auth.js'
 
@@ -21,5 +22,6 @@ router.get('/pending', auth, getPendingRequest);
 router.get('/requested', auth, getFriendRequests);
 router.get('/accepted', auth, getFriends);
 router.get('/counts', auth, countOfRequests);
+router.get('/check-friend/:friendId', auth, checkFriendOrNot);
 
 export default router;

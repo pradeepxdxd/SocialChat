@@ -1,0 +1,49 @@
+@import url('https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@10..48,200;10..48,300&family=Cedarville+Cursive&family=Recursive:wght@300&family=Roboto:ital,wght@0,300;1,500&display=swap');
+
+.profile {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    /* padding: 20px 0; */
+}
+
+.profile-image img {
+    width: 152px;
+    height: 152px;
+    border-radius: 50%;
+}
+
+.profile-user-name {
+    margin-top: 10px;
+    font-size: 24px;
+    font-family: 'Bricolage Grotesque', sans-serif;
+    font-family: 'Cedarville Cursive', cursive;
+
+}
+
+.profile-stats {
+    display: flex;
+    list-style: none;
+    padding: 0;
+    margin: 10px 0;
+}
+
+.profile-stat-count {
+    font-weight: bold;
+}
+
+.profile-bio {
+    margin-top: 10px;
+    font-size: 16px;
+}
+
+.container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+.header {
+    background-color: #f8f9fa;
+    border-bottom: 1px solid #e9ecef;
+}

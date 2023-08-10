@@ -201,6 +201,7 @@ export const getFriends = async (req, res) => {
     }
     catch (error) {
         console.log(error.message);
+        res.status(500).send({ statusCode: 500, msg: 'Internal Server Error' });
     }
 }
 
@@ -221,3 +222,19 @@ export const countOfRequests = async (req, res) => {
     }
 }
 
+// count slice
+export const checkFriendOrNot = async (req, res) => {
+    try {
+        const isFriend = await Friend.findOne({myId : req.user.userId, friendId : req.params.friendId, statusOfRequest : 'ACCEPTED'});
+
+        if (isFriend) {
+            res.status(200).send({statusCode : 200, msg : 'Yes, he/she is your friend', flag : true});
+        }
+        else {
+            res.status(404).send({statusCode : 200, msg : 'Yes, he/she is not your friend', flag : false});
+        }
+    } 
+    catch (error) {
+        res.status(500).send({ statusCode: 500, msg: 'Internal Server Error' });
+    }
+}

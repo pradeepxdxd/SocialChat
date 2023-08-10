@@ -33,3 +33,19 @@ export const searchByName = createAsyncThunk('user/searchByName', async (name) =
     }
 })
 
+export const getUserById = createAsyncThunk('user/getUserById', async (userId) => {
+    try {
+        const resp = await axios.get(`http://localhost:8000/api/user/get/${userId}`, {
+            headers: {
+                'Authorization': `Bearer ${getToken()}`
+            }
+        });
+
+        return resp.data;
+    } 
+    catch (error) {
+        console.log(error.message)    
+        throw error;
+    }
+})
+

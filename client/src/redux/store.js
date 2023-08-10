@@ -13,6 +13,7 @@ import replyReducer from './slices/replySlices'
 import replyFlagReducer from './slices/replyFlagSlices'
 import friendReducer from './slices/friendSlices'
 import requestReducer from './slices/requestSlices'
+import countReducer from './slices/countSlices'
 
 export const store = configureStore({
     reducer: {
@@ -30,6 +31,7 @@ export const store = configureStore({
         replyFlag : replyFlagReducer,
         friend : friendReducer,
         request : requestReducer,
+        count : countReducer,
     },
     // Adding the api middleware enables caching, invalidation, polling,
     // and other useful features of `rtk-query`.

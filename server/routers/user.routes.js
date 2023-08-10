@@ -6,6 +6,7 @@ import {
     resetPassword, 
     editProfile, 
     searchByName,
+    getUserById
 } from '../controllers/user.controller.js'
 
 import {auth} from '../middlewares/auth.js'
@@ -16,6 +17,7 @@ const router = express.Router();
 router.get('/get', auth, getUser);
 router.put('/editProfile', auth, profileImageUpload.single('profileImg'), editProfile);
 router.get('/searchByName', auth, searchByName);
+router.get('/get/:userId', auth, getUserById);
 
 router.patch('/changePassword', auth, changePassword);
 router.post('/forgetPassword', forgetPassword);

@@ -73,7 +73,7 @@ export default function Post({ data, user }) {
                     </div>
                     <img
                         src={data.post}
-                        style={{ objectFit: "cover", height: "500px" }}
+                        style={{ objectFit: "cover", height: "400px" }}
                         className="card-img-top"
                         alt={data.caption}
                     />

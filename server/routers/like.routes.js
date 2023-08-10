@@ -1,6 +1,10 @@
 import express from 'express';
 import { auth } from '../middlewares/auth.js';
-import {postLikeAndUnLike, countLikeOfPost, getUsersWhoLike} from '../controllers/like.controller.js'
+import {
+    postLikeAndUnLike,
+    countLikeOfPost, 
+    getUsersWhoLike, 
+} from '../controllers/like.controller.js'
 
 const router = express.Router();
 

@@ -1,10 +1,9 @@
 import dotenv from 'dotenv';
 dotenv.config();
 import User from '../models/user.js'
-import { sendMail, sendMailHandlebar } from '../services/mail.js'
+import { sendMailHandlebar } from '../services/mail.js'
 import { decodeAndHashPassword, decodePassword, hashPassword } from '../services/decodePassword.js';
 import { createToken } from '../services/token.js';
-import Friend from '../models/Friends.js'
 
 export const regis = async (req, res) => {
     try {
@@ -314,6 +313,22 @@ export const searchByName = async (req, res) => {
     catch (error) {
         console.log(error.message);
         res.status(500).send({ statusCode: 500, msg: 'Internal Server Error' });
+    }
+}
+
+export const getUserById = async (req, res) => {
+    try {
+        const user = await User.findById(req.params.userId).lean();
+
+        if (user) {
+            res.status(200).send({statusCode : 200, msg : 'User details fetched successfully', user});
+        }
+        else {
+            res.status(404).send({statusCode : 404, msg : 'User not found'});
+        }
+    } 
+    catch (error) {
+        res.status(500).send({statusCode : 500, msg : 'Internal Server Error'})
     }
 }
 

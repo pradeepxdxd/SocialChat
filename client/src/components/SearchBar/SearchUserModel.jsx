@@ -57,7 +57,7 @@ export default function SearchUserModel({ show, setShow }) {
                                 !flagUserFound ?
                                     data !== null && data.length > 0 &&
                                     data?.map(users =>
-                                        <Users key={users._id} user={users} loading={loading} />
+                                        <Users key={users._id} user={users} loading={loading} handleHide={handleHide} />
                                     )
                                     :
                                     <h4>User Not Found</h4>
