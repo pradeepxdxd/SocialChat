@@ -8,12 +8,11 @@ export const getPendingRequests = async () => {
                 Authorization: `Bearer ${getToken()}`
             }
         });
-    
         return resp.data.requests;
-    } 
+    }
     catch (error) {
         console.log(error.message);
-        throw error;    
+        throw error;
     }
 }
 
@@ -24,12 +23,12 @@ export const getFriendRequests = async () => {
                 Authorization: `Bearer ${getToken()}`
             }
         });
-    
+
         return resp.data.requests;
-    } 
+    }
     catch (error) {
         console.log(error.message);
-        throw error;    
+        throw error;
     }
 }
 
@@ -40,12 +39,12 @@ export const getFriends = async () => {
                 Authorization: `Bearer ${getToken()}`
             }
         });
-    
+
         return resp.data.requests;
-    } 
+    }
     catch (error) {
         console.log(error.message);
-        throw error;    
+        throw error;
     }
 }
 

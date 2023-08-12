@@ -4,6 +4,7 @@ const authApi = createApi({
     reducerPath : 'authApi',
     baseQuery : fetchBaseQuery({
         baseUrl : 'http://localhost:8000/api/auth'
+        // baseUrl : 'https://socialchat-pradeep.netlify.app/api/auth'
     }),
     endpoints : builder => {
         return {

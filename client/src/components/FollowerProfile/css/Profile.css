@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@10..48,200;10..48,300&family=Cedarville+Cursive&family=Recursive:wght@300&family=Roboto:ital,wght@0,300;1,500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@10..48,200;10..48,300&family=Cedarville+Cursive&family=Recursive:wght@300&family=Roboto:ital,wght@0,300;0,400;1,500&display=swap');
 
 .profile {
     display: flex;
@@ -18,6 +18,8 @@
     font-size: 24px;
     font-family: 'Bricolage Grotesque', sans-serif;
     font-family: 'Cedarville Cursive', cursive;
+    font-family: 'Recursive', sans-serif;
+    font-family: 'Roboto', sans-serif;
 
 }
 
@@ -47,3 +49,5 @@
     background-color: #f8f9fa;
     border-bottom: 1px solid #e9ecef;
 }
+
+/* verified badge*/

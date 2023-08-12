@@ -2,13 +2,12 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getUserById } from '../../redux/thunk/user'
 import InfinityScrollTemplate from "./InfinityScrollTemplate";
-import Loading from "../Loaders/Loading";
 import NoPostYet from '../Template/NoPostYet'
 
 export default function InfinityScrollerTest({ api, userId, Template }) {
     const [page, setPage] = useState(1);
     const [loading, setLoading] = useState(true);
-    const [mainLoading, setMainLoading] = useState(true);
+    // const [mainLoading, setMainLoading] = useState(true);
     const [data, setData] = useState([]);
     const [key] = useState(0);
     const [dataNotFound, setDataNotFound] = useState(false);
@@ -17,7 +16,7 @@ export default function InfinityScrollerTest({ api, userId, Template }) {
     const { data: userInfo } = useSelector(state => state.user);
 
     useEffect(() => {
-        setMainLoading(true);
+        // setMainLoading(true);
         const fetchApi = async () => {
             try {
                 dispatch(getUserById(userId));

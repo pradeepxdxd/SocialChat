@@ -44,7 +44,6 @@ const countSlice = createSlice({
             state.loading = false;
             state.success = true;
             state.error = null;
-            console.log(action.payload.flag)
             state.friend = action.payload.flag;
         })
         builder.addCase(isFriend.rejected, (state, action) => {

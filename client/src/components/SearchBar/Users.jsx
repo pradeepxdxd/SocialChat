@@ -7,6 +7,7 @@ import { userInfo } from '../../services/utils/common'
 import { doFollow, acceptRequest, unFollow } from '../../redux/thunk/friend'
 import { getPendingRequests, getFriendRequests, getFriends } from '../../services/apis/services'
 import { useNavigate } from 'react-router-dom'
+import Verified from '../Template/Verified'
 
 export default function Users({ user, loading, handleHide }) {
     const [request, setRequest] = useState(false);
@@ -84,7 +85,7 @@ export default function Users({ user, loading, handleHide }) {
         // send friend request
         // setRequest(flag => flag ? false : true);
         dispatch(doFollow(user._id));
-        setRequestStatus({...requestStatus, PENDING : true});
+        setRequestStatus({ ...requestStatus, PENDING: true });
         setRequest(true);
     }
 
@@ -124,7 +125,7 @@ export default function Users({ user, loading, handleHide }) {
                                 onClick={handleClickOnProfile}
                             />
                             <div className="user-info">
-                                <h5>{user.name}</h5>
+                                <h5>{user.name}<span>{user.verified === true && <Verified />}</span></h5>
                             </div>
                             {
                                 // eslint-disable-next-line no-mixed-operators
@@ -162,7 +163,7 @@ export default function Users({ user, loading, handleHide }) {
                                     </>
                                 }
                                 {
-                                    !request && 
+                                    !request &&
                                     <>
                                         <button onClick={handleSendRequest}>
                                             <span className="box follow">

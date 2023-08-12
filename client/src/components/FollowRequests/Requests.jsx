@@ -5,6 +5,7 @@ import { accpetRequest, rejectRequest } from '../../redux/thunk/followRequest'
 import { useDispatch } from 'react-redux'
 import { requestAccepted, refreshCount } from '../../redux/slices/friendSlices'
 import { useNavigate } from 'react-router-dom';
+import Verified from '../Template/Verified';
 
 export default function Requests({ user }) {
     const dispatch = useDispatch();
@@ -15,7 +16,7 @@ export default function Requests({ user }) {
         dispatch(requestAccepted(user));
         dispatch(refreshCount());
     }
-    
+
     const handleReject = () => {
         dispatch(rejectRequest(user));
         dispatch(refreshCount());
@@ -40,16 +41,16 @@ export default function Requests({ user }) {
                                 onClick={handleClickOnProfile}
                             />
                             <div className="user-info">
-                                <h5>{user.friend.name}</h5>
+                                <h5>{user.friend.name}<span>{user.friend.verified === true && <Verified />}</span></h5>
                             </div>
                             <div className="reply-button add-icon">
                                 <button onClick={handleAccept}>
-                                    <span className="box accept" style={{width : '100px'}}>
+                                    <span className="box accept" style={{ width: '100px' }}>
                                         Accept
                                     </span>
                                 </button>
                                 <button onClick={handleReject}>
-                                    <span className="box reject" style={{width : '100px'}}>
+                                    <span className="box reject" style={{ width: '100px' }}>
                                         Reject
                                     </span>
                                 </button>

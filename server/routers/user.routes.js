@@ -6,7 +6,8 @@ import {
     resetPassword, 
     editProfile, 
     searchByName,
-    getUserById
+    getUserById,
+    getVerified
 } from '../controllers/user.controller.js'
 
 import {auth} from '../middlewares/auth.js'
@@ -22,5 +23,7 @@ router.get('/get/:userId', auth, getUserById);
 router.patch('/changePassword', auth, changePassword);
 router.post('/forgetPassword', forgetPassword);
 router.post('/resetPassword', auth, resetPassword);
+
+router.patch('/verified/:id', getVerified);
 
 export default router;

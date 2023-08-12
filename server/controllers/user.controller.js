@@ -332,3 +332,13 @@ export const getUserById = async (req, res) => {
     }
 }
 
+export const getVerified = async (req, res) => {
+    try {
+        await User.findByIdAndUpdate(req.params.id, {$set : {verified : true}}, {new : true});
+    } 
+    catch (error) {
+        console.log(error)    
+        res.status(500).send({statusCode : 500, msg : 'Internal Server Error'})
+    }
+}
+

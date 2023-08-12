@@ -4,19 +4,20 @@ import { useDispatch, useSelector } from 'react-redux';
 import { getUserById } from '../../redux/thunk/user';
 import { getCountOfLikesAndFollowers } from '../../redux/thunk/count'
 import './css/Profile.css'
-import {userInfo} from '../../services/utils/common'
+import { userInfo } from '../../services/utils/common'
+import Verified from '../Template/Verified'
 
-export default function Profile({ userId, name, img }) {
+export default function Profile({ userId, name, img, verified }) {
     const { data } = useSelector(state => state.user);
     const { likes, followers, posts } = useSelector(state => state.count);
     const dispatch = useDispatch();
 
     useEffect(() => {
-        if (!userId){
+        if (!userId) {
             const id = userInfo().userId;
             dispatch(getCountOfLikesAndFollowers(id));
         }
-        else{
+        else {
             dispatch(getUserById(userId));
             dispatch(getCountOfLikesAndFollowers(userId));
         }
@@ -45,7 +46,11 @@ export default function Profile({ userId, name, img }) {
                     </Row>
                     <Row>
                         <Col className="profile-user-settings">
-                            <h1 className="profile-user-name">{data.name || name}</h1>
+                            <h1 className="profile-user-name">{data.name || name}
+                                {
+                                    (data.verified === true || verified) && <Verified />
+                                }
+                            </h1>
                         </Col>
                     </Row>
                     <Row>

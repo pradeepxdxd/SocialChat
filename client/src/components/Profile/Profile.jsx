@@ -4,6 +4,7 @@ import Loading from '../Loaders/Loading'
 import { useNavigate } from 'react-router-dom'
 import EditForm from './EditForm';
 import UserDetails from './UserDetails';
+import Verified from '../Template/Verified';
 
 
 export default function Profile() {
@@ -37,7 +38,7 @@ export default function Profile() {
                                     <div className="card-body text-center">
                                         <img src={data.user.profileImg} alt="avatar"
                                             className="rounded-circle img-fluid" style={{ width: "150px", height: '150px' }} />
-                                        <h5 className="my-3">{data.user.name}</h5>
+                                        <h5 className="my-3">{data.user.name}<span>{data.user.verified === true && <Verified />}</span></h5>
                                         <p className="text-muted mb-1">Full Stack Developer</p>
                                         <p className="text-muted mb-4">Bay Area, San Francisco, CA</p>
                                         <div className="d-flex justify-content-center mb-2">

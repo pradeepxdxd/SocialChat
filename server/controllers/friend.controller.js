@@ -231,7 +231,7 @@ export const checkFriendOrNot = async (req, res) => {
             res.status(200).send({statusCode : 200, msg : 'Yes, he/she is your friend', flag : true});
         }
         else {
-            res.status(404).send({statusCode : 200, msg : 'Yes, he/she is not your friend', flag : false});
+            res.status(202).send({statusCode : 202, msg : 'Yes, he/she is not your friend', flag : false});
         }
     } 
     catch (error) {

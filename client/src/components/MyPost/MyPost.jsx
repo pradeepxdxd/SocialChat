@@ -20,7 +20,7 @@ export default function MyPost() {
             {data && data?.user &&
                 <>
                     <div style={{marginTop : '100px'}}>
-                        <Profile name={data.user.name} img={data.user.profileImg}  />
+                        <Profile name={data.user.name} img={data.user.profileImg} verified={data.user.verified}  />
                     </div>
                     <div className=''>
                         <InfinityScroller api={getMyPosts} limit={6} Templete={Post} />
