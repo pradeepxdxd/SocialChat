@@ -4,6 +4,7 @@ import { useDispatch } from 'react-redux'
 import { unFollow } from '../../redux/thunk/friend'
 import './css/Followers.css'
 import { useNavigate } from 'react-router-dom'
+import Verified from '../Template/Verified'
 
 export default function Followers({ user }) {
 
@@ -33,7 +34,7 @@ export default function Followers({ user }) {
                                 alt="User Profile"
                             />
                             <div className="user-info">
-                                <h5>{user.friend.name}</h5>
+                                <h5>{user.friend.name}<span>{user.friend.verified === true && <Verified />}</span></h5>
                             </div>
                             <div className="reply-button add-icon">
                                 <button onClick={handleUnfollow}>

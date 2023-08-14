@@ -40,7 +40,7 @@ export default function Friends() {
                         }
                         {
                             // eslint-disable-next-line no-mixed-operators
-                            (data === undefined || data === null || data?.length === 0)  &&
+                            (data === undefined || data === null || data?.length === 0) &&
                             <h6 className='mx-5 mt-5'>
                                 You Don't have friends
                             </h6>

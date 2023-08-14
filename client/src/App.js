@@ -13,6 +13,7 @@ import Friends from './components/Friends/Friends';
 import AddPost from './components/AddPost/AddPost';
 import MyPost from './components/MyPost/MyPost';
 import Follower from './components/FollowerProfile/Follower';
+import Chat from './components/Chat/Chat';
 import { ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css';
 
@@ -67,6 +68,11 @@ function App() {
                     <Route path="/follower/:userId" element={
                         <ProtectedRoute>
                             <Follower />
+                        </ProtectedRoute>
+                    } />
+                    <Route path="/chat" element={
+                        <ProtectedRoute>
+                            <Chat />
                         </ProtectedRoute>
                     } />
                 </Routes>

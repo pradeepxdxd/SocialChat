@@ -115,7 +115,7 @@ function Header() {
                             <Nav.Link as={Link} to='/addPost'>Add Post</Nav.Link>
                             <Nav.Link as={Link} to='/myPost'>My Post</Nav.Link>
                             <Nav.Link as={Link} to='/friends'>Friends<span style={{ color: 'green' }}>●</span></Nav.Link>
-                            <Nav.Link as={Link} to='/#'>Chat <span style={{ color: 'red', fontFamily: 'monospace' }}>3</span></Nav.Link>
+                            <Nav.Link as={Link} to='/chat'>Chat <span style={{ color: 'red', fontFamily: 'monospace' }}>3</span></Nav.Link>
                         </>
                         :
                         <>
