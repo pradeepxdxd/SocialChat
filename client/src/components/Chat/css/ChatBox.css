@@ -1,0 +1,4 @@
+.chat-wrapper {
+    height: calc(100vh - 106px);
+    overflow-y: auto;
+}

@@ -14,6 +14,7 @@ import replyFlagReducer from './slices/replyFlagSlices'
 import friendReducer from './slices/friendSlices'
 import requestReducer from './slices/requestSlices'
 import countReducer from './slices/countSlices'
+import chatReducer from './slices/chatSlices';
 
 export const store = configureStore({
     reducer: {
@@ -28,10 +29,11 @@ export const store = configureStore({
         like: likeReducer,
         comment: commentReducer,
         reply: replyReducer,
-        replyFlag : replyFlagReducer,
-        friend : friendReducer,
-        request : requestReducer,
-        count : countReducer,
+        replyFlag: replyFlagReducer,
+        friend: friendReducer,
+        request: requestReducer,
+        count: countReducer,
+        chat: chatReducer,
     },
     // Adding the api middleware enables caching, invalidation, polling,
     // and other useful features of `rtk-query`.

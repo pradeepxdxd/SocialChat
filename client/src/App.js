@@ -14,6 +14,7 @@ import AddPost from './components/AddPost/AddPost';
 import MyPost from './components/MyPost/MyPost';
 import Follower from './components/FollowerProfile/Follower';
 import Chat from './components/Chat/Chat';
+import PageNotFound from './components/PageNotFound/PageNotFound'
 import { ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css';
 
@@ -74,6 +75,9 @@ function App() {
                         <ProtectedRoute>
                             <Chat />
                         </ProtectedRoute>
+                    } />
+                    <Route path="*" element={
+                        <PageNotFound />
                     } />
                 </Routes>
             </Router>

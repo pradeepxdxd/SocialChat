@@ -46,7 +46,7 @@ export default function Profile({ userId, name, img, verified }) {
                     </Row>
                     <Row>
                         <Col className="profile-user-settings">
-                            <h1 className="profile-user-name">{data.name || name}
+                            <h1 className="profile-user-name name-profile-left">{data.name || name}
                                 {
                                     (data.verified === true || verified) && <Verified />
                                 }
@@ -56,7 +56,7 @@ export default function Profile({ userId, name, img, verified }) {
                     <Row>
                         <Col className="profile-bio">
                             <p>
-                                <span className="profile-real-name">Jane Doe</span> Lorem ipsum dolor sit, amet consectetur adipisicing elit
+                                <span className="profile-real-name bio-profile">Jane Doe</span> Lorem ipsum dolor sit, amet consectetur adipisicing elit
                                 <span role="img" aria-label="camera">
                                     📷✈️🏕️
                                 </span>

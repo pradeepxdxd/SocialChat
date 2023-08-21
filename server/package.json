@@ -25,6 +25,7 @@
     "nodemailer": "^6.9.3",
     "nodemailer-express-handlebars": "^6.1.0",
     "rollup": "^3.25.1",
-    "save-dev": "^0.0.1-security"
+    "save-dev": "^0.0.1-security",
+    "socket.io": "^4.7.2"
   }
 }
